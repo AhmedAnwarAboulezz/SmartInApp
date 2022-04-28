@@ -1,0 +1,137 @@
+
+
+<ion-content>  
+  <app-main-header></app-main-header>
+  <ion-grid style="padding: 0 2px 48px 2px;">
+    <ion-row style="background: azure;">
+      <ion-col  size="12" *ngIf="lastLog !== null && lastLog !== undefined">
+        <ion-card>
+          <ion-card-content  style="padding: 2px;">
+            <ion-item>  
+              <ion-label>
+                <span style="padding: 0px 10px;">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  {{lastLog?.timeEntry | localizedDate : true}}  
+                </span>
+                <ion-button>
+                  <ion-icon *ngIf="lastLog?.logTypeId == '10000000-1000-1000-1000-100000000000'" name="log-in-outline"></ion-icon>
+                  <ion-icon *ngIf="lastLog?.logTypeId == '20000000-2000-2000-2000-200000000000'" name="log-out-outline"></ion-icon>
+                  {{lastLog?.logTypeId == '10000000-1000-1000-1000-100000000000' ? ('signPage.in' | translate) : ('signPage.out' | translate)}}
+                </ion-button>
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <div style="margin: 20% 0;text-align: end; color: #087c04;"><ion-icon  name="log-in-outline"></ion-icon>{{'Data.signIn' | translate}}</div>
+      </ion-col>
+      <ion-col size="4" style="text-align: center;">
+        <ion-toggle [ngModel]="theSate" (ngModelChange)="stateChange($event)"  name="blueberry" [checked]="signData.logTypeId == '20000000-2000-2000-2000-200000000000' ? true : false"></ion-toggle>
+      </ion-col>
+      <ion-col size="4">
+        <div style="margin: 20% 0;text-align: start; color: #e90a0a;"><ion-icon name="log-out-outline"></ion-icon>{{'Data.signOut' | translate}}</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="locationType == locationProofEnum['point'] || locationType == locationProofEnum['polygon']">
+      <ion-col>
+        <ion-button style="height: 130px;" [color]="currentLocation.active ? 'success' : 'danger'" expand="block" (click)="locateUser(false)">
+          <ion-icon name="locate" slot="start"></ion-icon>
+          <h4 style="margin: 0 6px; white-space: initial; text-transform: capitalize;">{{currentLocation.nameFl}}</h4>          
+        </ion-button>  
+      </ion-col>        
+    </ion-row>     
+
+    <!-- <ion-row >
+      <ion-col size-md="6" offset-md="3">
+        <ion-item >
+          <ion-button expand="block" (click)="takePicture()" >
+            <ion-icon name="save-outline" slot="start"></ion-icon>
+            Take Photo
+          </ion-button>
+          <ion-img *ngIf="imageTest!=''" src="{{ imageTest}}"></ion-img>          
+        </ion-item>
+      </ion-col>
+    </ion-row> -->
+    <ion-row *ngIf="imageTest!=''">
+      <ion-col>
+        <div class="text-center">
+          <ion-img  class="text-center"  src="{{imageTest}}"></ion-img>      
+      </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-card [ngStyle]="{'background-color':  currentLocation.active ? 'green' : 'red'}">
+      <ion-card-content style="margin: 8% 0;" class="text-center" [ngStyle]="{'background-color':  currentLocation.active ? 'green' : 'red'}"  style="padding: 2px;">
+        <h1 style="padding: 5px 3px;
+        color: white;">{{currentLocation.nameFl}}</h1>
+      </ion-card-content>
+    </ion-card> -->
+
+    <!-- <ion-row style="position: fixed; bottom: 8px;">
+      <ion-col size-md="6" offset-md="3">       
+      <ion-button expand="block" [disabled]="!currentLocation.active" [color]="currentLocation.active ? 'success' : 'danger'" (click)="onSubmit()">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Make Sign</ion-button>          
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row *ngIf="locationType == locationProofEnum['beacon']">
+      <!-- <ion-col size-md="6" offset-md="3">
+        <ion-button expand="block" (click)="showBeaconModal(2)" >
+          <ion-icon src="card-outline" slot="start"></ion-icon>
+          {{'signPage.chooseBeacon' | translate}} 
+        </ion-button>
+      </ion-col> -->
+      <ion-col size-md="6" offset-md="3">
+        <ion-button expand="block" (click)="showBeaconModal(4)" >
+          <ion-icon src="card-outline" slot="start"></ion-icon>
+          {{'signPage.chooseBeacon' | translate}} 
+        </ion-button>
+      </ion-col>
+      <!-- <ion-col size-md="6" offset-md="3">
+        <ion-button expand="block" (click)="showBeaconModal(1)" >
+          <ion-icon src="card-outline" slot="start"></ion-icon>
+          {{'signPage.chooseBeacon1' | translate}} 
+        </ion-button>
+      </ion-col> -->
+      <!-- <ion-col size-md="6" offset-md="3">
+        <ion-button expand="block" (click)="showBeaconModal(1)" >
+          <ion-icon src="card-outline" slot="start"></ion-icon>
+          {{'signPage.chooseBeacon1' | translate}} 
+        </ion-button>
+      </ion-col>
+      <ion-col size-md="6" offset-md="3">
+        <ion-button expand="block" (click)="showBeaconModal(3)" >
+          <ion-icon src="card-outline" slot="start"></ion-icon>
+          {{'signPage.chooseBeacon3' | translate}} 
+        </ion-button>
+      </ion-col> -->
+    </ion-row>
+    <ion-card *ngIf="locationType == locationProofEnum['beacon'] && beaconInfo !== null && beaconInfo !== undefined">
+      <ion-card-content  style="padding: 2px;">
+        <ion-item>  
+          <ion-label>
+            <div [ngStyle]="{'background-color':  beaconInfo.active ? 'green' : 'red'}" class="status-dot">
+            </div>
+            <h1 style="margin: 0 16px;">{{base.isEnglish() ? beaconInfo.nameFl : beaconInfo.nameSl}}</h1>
+          </ion-label>
+          <!-- <ion-label item-end style="text-align: right;">{{'signPage.rssi' | translate}} : {{beaconInfo.rssi}}</ion-label> -->
+        </ion-item>  
+      </ion-card-content>
+    </ion-card>
+  </ion-grid> 
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="start" (click)="takePicture()" >
+  <ion-fab-button size="large" color="tertiary">
+    <ion-icon size="large" name="camera" class="camera-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab vertical="bottom" horizontal="end" >
+  <ion-fab-button size="large" [disabled]="!activated || imageTest==''" [color]="activated ? 'success' : 'danger'" (click)="onSubmit()">
+     {{'signPage.apply' | translate}} 
+     <ion-icon size="small" name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

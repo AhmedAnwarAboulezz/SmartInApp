@@ -1,0 +1,92 @@
+<ion-content [fullscreen]="true">
+  <div class="center-content">
+    <app-main-header></app-main-header>
+    <div class="attendance-wrap">
+      <div class="title">
+        <h1>Sign</h1>
+      </div>
+
+      <div class="sign-filter">
+        <div
+          (click)="toggleMark()"
+          class="card"
+          [ngClass]="{success: !enabledMark, danger: enabledMark}"
+        >
+          <div class="icon">
+            <ion-icon name="location-outline" slot="end"></ion-icon>
+          </div>
+          <div class="address mt-5 mb-15">
+            أ /3 المدينة المنورة تقاطع عاطف خطاب
+          </div>
+          <div class="mark-icon">
+            <ion-icon *ngIf="!enabledMark" name="checkmark-outline"></ion-icon>
+            <ion-icon *ngIf="enabledMark" name="close-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <div
+        [class]="'attendance-item-wrap mt-15 ' + item?.status"
+        [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+        *ngFor="let item of items"
+      >
+        <div (click)="toggleExpand(item)" class="mini-content">
+          <div class="header d-flex">
+            <div class="title d-flex">
+              <ion-icon class="icon" [name]="item?.department.icon"></ion-icon>
+              <p class="m-0">{{ item?.title }}</p>
+            </div>
+
+            <div
+              class="expand-icons"
+              [ngClass]="{ expanded: item?.isExpanded }"
+            >
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="content d-flex">
+            <p class="d-flex m-0">
+              <span class="name">{{ item?.department.name }}</span>
+              <span [class]="'name-time ' + item?.status"
+                >{{ item?.balanceBefore }}</span
+              >
+            </p>
+            <span [class]="'status ' + item?.status">{{ item?.status }}</span>
+          </div>
+        </div>
+        <div
+          class="expanded-content"
+          [ngClass]="{ expanded: item?.isExpanded }"
+        >
+          <div class="permission-date from">
+            <p class="title m-0">Log shot</p>
+            <p>
+              <img src="assets/images/avatar2.jpg" alt="shot image" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="footer-btn">
+    <ion-button
+      [disabled]="enabledMark"
+      expand="full"
+      size="large"
+      color="primary"
+    >
+      Log in
+    </ion-button>
+    <ion-button
+      [disabled]="enabledMark"
+      expand="full"
+      size="large"
+      color="warning"
+    >
+      Log off
+    </ion-button>
+  </div>
+</ion-footer>

@@ -1,0 +1,38 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0"> {{ localize.isEnglish() ? item.fullDayPermissionFL :item.fullDayPermissionSL }}</p>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div *ngIf="item.comment" class="content d-flex">
+      <p class="m-0">{{ 'Data.Comment' | translate }} : {{item?.comment}}</p>
+    </div>
+    <hr />
+
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Date' | translate }}</p>
+        <p class="date mt-5 mb-5"> {{ item.startDate | localizedDate }} -
+          {{ item.endDate | localizedDate}}</p>
+      </div>
+
+    </div>
+
+    <div  class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+      <div class="details">
+        
+        {{ 'Data.Days' | translate }} : {{ localize.isEnglish() ? item.daysFl
+          :item.daysSl }}
+      </div>
+
+     
+
+      
+    </div>
+  </div>
+</div>

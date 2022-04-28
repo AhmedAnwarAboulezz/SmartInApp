@@ -1,0 +1,147 @@
+.attendance-item-wrap {
+  .mini-content {
+    position: relative;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(194, 213, 237, 0.3),
+      0 6px 20px 0 rgba(194, 213, 237, 0.3);
+
+    .border {
+      position: absolute;
+      height: 50%;
+      width: 3px;
+      //RTL Changes
+      left: 0;
+      border-radius: 3px;
+
+      &.top-border {
+        top: 0;
+        &.present {
+          background-color: #22b9f2;
+        }
+        &.absence {
+          background-color: #e84855;
+        }
+        &.restDay {
+          background-color: #fdc01c;
+        }
+        &.lateIn {
+          background-color: #e84855;
+        }
+        &.earlyOut {
+          background-color: #e84855;
+        }
+        &.weekend {
+          background-color: #646464;
+        }
+      }
+
+      &.bottom-border {
+        bottom: 0;
+        &.present {
+          background-color: #22b9f2;
+        }
+        &.absence {
+          background-color: #e84855;
+        }
+        &.restDay {
+          background-color: #fdc01c;
+        }
+        &.lateIn {
+          background-color: #e84855;
+        }
+        &.earlyOut {
+          background-color: #e84855;
+        }
+        &.weekend {
+          background-color: #646464;
+        }
+      }
+    }
+    .header {
+      margin-bottom: 10px;
+    }
+
+    .expand-icons {
+      transition: all 0.2s ease-in-out;
+      &.expanded {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+
+
+  
+
+
+  .expanded-content {
+    background-color: #f6f9fd;
+    overflow: hidden;
+    padding: 0;
+    height: 0;
+    transition: all 0.2s ease-in-out;
+
+    &.expanded {
+      height: auto;
+      padding: 15px;
+    }
+
+    .login-info {
+      justify-content: center;
+      .log-btn {
+        padding: 10px;
+        border-radius: 5px;
+
+        &.login-btn {
+          background-color: #22b9f21c;
+          margin-right: 15px;
+          margin-left: 15px;
+          font-size: 0.9rem;
+        }
+
+        &.logoff-btn {
+          background-color: #ffc21c24;
+        }
+
+        span {
+          &:first-child {
+            margin-right: 10px;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    hr {
+      background-color: #abbbcf45;
+      margin: 15px 0;
+    }
+
+    .hours-info {
+      .title {
+        color: #8594a7;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.attendance-item-wrap.lang-ar {
+  .mini-content .border {
+    left: auto;
+    right: 0;
+  }
+  .mini-content {  
+    .expand-icons {    
+      &.expanded {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}
+
+
+
+
+

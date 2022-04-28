@@ -1,0 +1,48 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0">{{ localize.isEnglish() ? item?.fullDayPermissionFl :item?.fullDayPermissionSl }}</p>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">
+        <ion-icon class="icon" name="person" ></ion-icon>        
+        {{ item?.employeeNumber }} - {{ localize.isEnglish() ? item?.employeeNameFl : item?.employeeNameSl }}
+      </p>
+    </div>
+    <br />
+    <div class="content d-flex">
+      <p class="m-0">
+        <ion-icon class="icon" name="business-outline"></ion-icon>
+        <span  class="name"> {{ localize.isEnglish() ? item.administrationFl :item.administrationSl }}</span>
+      </p>
+    </div>
+    <hr />
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.StartDate' | translate }}</p>
+        <p class="date mt-5 mb-5">{{ item.startDate | localizedDate }} </p>
+      </div>
+      <div class="permission-date from">
+        <p class="title m-0"> {{ 'Data.EndDate' | translate }}</p>
+        <p class="date mt-5 mb-5">{{ item.endDate | localizedDate }}</p>
+      </div>
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.nameDays' | translate }}</p>
+        <p class="mt-5 mb-5">{{ localize.isEnglish() ? item?.daysFl
+          :item?.daysSl }}</p>
+      </div>     
+    </div>
+    <br />
+    <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+      <div class="details">
+        {{ 'Data.notes' | translate }} : {{ item?.comment }}
+      </div>
+    </div>
+  </div>
+</div>

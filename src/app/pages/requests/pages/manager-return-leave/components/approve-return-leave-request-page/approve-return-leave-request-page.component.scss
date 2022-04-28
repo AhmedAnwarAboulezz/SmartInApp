@@ -1,0 +1,132 @@
+
+.numberCircle {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    background: #fff;
+    border: 2px solid #666;
+    flex-grow: 0;
+    padding: 0;
+}
+
+.numberCircle span {
+    color: #666;
+    text-align: center;
+    font: 12px Arial, sans-serif;
+    width: 25px;
+    display: inline-block;
+    margin: auto;
+}
+
+
+img {
+    border-radius: 50%;
+    border: 2px solid #4d71d7;
+}
+
+.item-btn {
+    width: 100% !important;
+    ion-button {
+        width: 90% !important;
+        margin: 0 auto !important;
+    }
+}
+
+ion-segment {
+    --background: transparent !important;
+}
+
+ion-segment-button {
+    --indicator-box-shadow: transparent !important;
+    border-radius: 2.5rem !important;
+    padding: 0.4rem;
+    margin: 15px;
+    --background: #fff;
+    --color: #3b0202;
+    --background-checked: linear-gradient(to right, #e12525, #e76771);
+     --color-checked: white;
+    --indicator-color: transparent !important; /* this solution */
+}
+.summary {
+    border-top: 1px solid #888 !important;
+    border-bottom: 1px solid #888 !important;
+    padding: 7px;
+    text-align: center;
+}
+.start {
+    border-bottom: 1px solid #888 !important;
+    padding: 10px;
+}
+.summary-title {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.thumb-img {
+    width: 50;
+    height: 50px;
+}
+
+.request-status {
+    color: saddlebrown;
+    font-weight: bold;}
+.request-comment {
+    color: rgb(30, 93, 210);
+}
+.accept-status{
+    color: forestgreen;
+}
+.reject-status{
+    color: rgb(226, 37, 62);
+}
+
+.status {
+    margin-top: 2px !important;
+   // color: rgb(210, 168, 30);
+    font-size: small;
+}
+
+
+.main-header {
+    --background: #f6f9fd;
+    --color: #231f20;
+  }
+  
+  .filter-wrap {
+    .date {
+      color: #abbbcf;
+    }
+  }
+  
+  .icon {
+    color: #e84855;
+    background-color: #fce5e7;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #e84855;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    ion-icon {
+      zoom: 1.5;
+    }
+  }
+  .footer-btn {
+    background-color: #ffffff;
+    padding: 15px;
+  }
+  
+  .action-btns {
+    margin-top: 30px;
+    .btn {
+      width: 100%;
+    }
+  }
+  
+
+  .summary ion-label{
+    display: inherit; 
+    padding: 2px 0;
+  }

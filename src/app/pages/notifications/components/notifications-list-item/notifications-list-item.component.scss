@@ -1,0 +1,34 @@
+.notifications-item-wrap {
+  padding: 15px;
+  background-color: inherit;
+  color: #147ad6;
+  border-left: 4px solid #147ad6;
+
+  &.isRead {
+    background-color: inherit;
+    color: #434343;
+    border-left: 4px solid #abbbcf;
+  }
+
+  .content .date {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+  }
+  .content h4{
+    font-size: 17px;
+    font-weight: 600;
+  }
+}
+
+.notifications-item-wrap.lang-ar {
+  border-left: none;
+  border-right: 4px solid #147ad6;
+  box-shadow: 0 4px 8px 0 rgb(194 213 237 / 30%), 0 6px 20px 0 rgb(194 213 237 / 30%);
+
+  &.isRead {
+    border-left: none;
+    border-right: 4px solid #abbbcf;
+  
+  }
+}

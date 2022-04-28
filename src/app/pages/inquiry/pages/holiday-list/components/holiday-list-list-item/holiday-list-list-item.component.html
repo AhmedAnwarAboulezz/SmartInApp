@@ -1,0 +1,29 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0">{{ localize.isEnglish() ? item.publicHolidayNameFl :item.publicHolidayNameSl }}</p>     
+    </div>
+    <div class="content d-flex">
+      <p class="m-0"> {{ 'Data.Days' | translate }} : {{ item?.holidayDays }} {{ 'Data.day' | translate }}</p>
+    </div>
+    <hr />
+
+    <div class="content d-flex">
+    
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.From' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.startDate | localizedDate}}</p>
+      </div>
+
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.To' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.endDate | localizedDate  }}</p>
+      </div>
+    </div>
+
+  
+  </div>
+</div>

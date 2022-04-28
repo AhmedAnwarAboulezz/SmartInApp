@@ -1,0 +1,51 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0">{{ localize.isEnglish() ? item?.partialPermissionFL :item?.partialPermissionSL }}</p>
+      <span class="status present">{{ localize.isEnglish() ? item?.permissionTimeNameFl :item?.permissionTimeNameSl }}</span>    
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">
+        <ion-icon class="icon" name="person" ></ion-icon>        
+        {{ item?.employeeNumber }} - {{ localize.isEnglish() ? item?.employeeNameFl : item?.employeeNameSl }}
+      </p>
+    </div>
+    <hr />
+
+    <div class="content d-flex">
+      <p class="m-0">
+        <ion-icon class="icon" name="business-outline"></ion-icon>
+        <span  class="name"> {{ localize.isEnglish() ? item.administrationFl :item.administrationSl }}</span>
+      </p>
+    </div>
+    <hr />
+
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Date' | translate }}</p>
+        <p class="date mt-5 mb-5">{{ item?.startDate | localizedDate }}</p>
+
+      </div>
+
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.StartTime' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item?.startTime | timeSpanPipe }}</p>
+      </div>
+
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.EndTime' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item?.endTime | timeSpanPipe }}</p>
+      </div>
+
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Duration' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item?.permissionDuration }} {{
+          'Data.Miute' | translate }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>

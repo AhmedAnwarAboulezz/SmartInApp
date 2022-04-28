@@ -1,0 +1,36 @@
+<ion-button (click)="testBtn()" style="display: none;" id="testinIds">Refresh</ion-button>
+<ion-item>
+
+  <ion-label>
+  <div [ngStyle]="{'background-color':  beacon.active ? 'green' : 'red'}" class="status-dot">
+  </div>
+  <h2 style="margin: 0 16px;">{{localize.isEnglish() ? beacon.nameFl : beacon.nameSl}}</h2>
+  </ion-label>
+  <ion-label item-end style="text-align: right;">{{'signPage.rssi' | translate}} : {{iosDevice ? beacon.rssi : beacon.TX}}</ion-label>
+</ion-item>
+<!-- <p> scanStatus : {{scannig}}</p> -->
+<!-- <p>{{startTime}} / {{endTime}}</p> -->
+<ion-item-divider style="min-height: 1px; "> </ion-item-divider>
+
+<ion-item>
+  <ion-label style="white-space: nowrap;">
+    <!-- <b>{{'signPage.uuid' | translate}} </b>  -->
+    <!-- <br>
+     {{beacon.uuid}} -->
+     <!-- <br>
+     {{beacon.minor}}
+     <br>
+     {{beacon.major}} -->
+     <!-- <br>
+     {{beacon.accuracy}}  -->
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="beacon.active" >
+  <ion-label class="text-center">
+    <ion-button (click)="selectBeacon()"  color="success">
+      <ion-icon name="checkmark-outline" slot="end"></ion-icon>
+      {{ 'Data.Activate' | translate}}
+    </ion-button>
+  </ion-label>
+</ion-item>
+

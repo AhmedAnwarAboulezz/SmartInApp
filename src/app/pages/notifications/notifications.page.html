@@ -1,0 +1,92 @@
+<ion-content [fullscreen]="true">
+  <div class="center-content">
+    <app-main-header [isNotifications]="true"></app-main-header>
+    <div class="attendance-wrap">
+      <div class="notification-fixed">
+        <div class="card-header">
+          <div class="title">
+            <h3>{{ 'Data.Notification' | translate}}</h3>
+          </div>
+          <ion-buttons slot="end">
+            <ion-button (click)="close()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+        <ion-segment color="danger"  (ionChange)="segmentChanged($event)" [value]="activeTab">
+          <ion-segment-button value="workflow">
+            <!-- <ion-icon name="stats-chart-outline"></ion-icon> -->
+            <ion-label>{{'Data.Workflow' | translate}} ({{ workflowCount }})</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="hr">
+            <!-- <ion-icon name="finger-print-outline"></ion-icon> -->
+            <ion-label>{{'Data.HR' | translate}} ({{ hrCount }})</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="news">
+            <!-- <ion-icon name="code-working-outline"></ion-icon> -->
+            <ion-label>{{'Data.News' | translate}} ({{ newsCount }})</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <ion-item    style="border-top: 1px dashed #dedede; text-align: center;">
+          <ion-icon class="search" name="search" slot="end"></ion-icon>
+          <ion-input style="width: fit-content;" type="text" (focusout)="SearchInput($event.target)" placeholder="{{ 'Data.Search' | translate }}">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-grid *ngIf="!loader.isLoading.getValue() && list.length == 0">
+        <ion-row>
+          <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+            <p>{{ 'Data.noNotificationMsg' | translate}} </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="card-items" *ngIf="list.length > 0">
+        <ng-container *ngFor="let item of list">
+          <div class="mt-15">
+            <app-notifications-list-item
+              [item]="item"
+              [segmentValue]="segmentValue"
+            ></app-notifications-list-item>
+          </div>
+        </ng-container>
+      </div>
+      <!-- <div class="card-items" *ngIf="list.length > 0 && activeTab == 'hr'">
+        <ng-container *ngFor="let item of list">
+          <div class="mt-15">
+            <app-notifications-list-item
+              [item]="item"
+              [segmentValue]="segmentValue"
+            ></app-notifications-list-item>
+          </div>
+        </ng-container>
+        <ion-infinite-scroll (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'Data.loading' | translate">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+      <div class="card-items" *ngIf="list.length > 0 && activeTab == 'news'">
+        <ng-container *ngFor="let item of list">
+          <div class="mt-15">
+            <app-notifications-list-item
+              [item]="item"
+              [segmentValue]="segmentValue"
+            ></app-notifications-list-item>
+          </div>
+        </ng-container>
+        <ion-infinite-scroll (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'Data.loading' | translate">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div> -->
+    </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'Data.loading' | translate">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

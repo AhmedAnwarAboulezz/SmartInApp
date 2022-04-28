@@ -1,0 +1,93 @@
+<!-- <div class="attendance-item-wrap">
+  <div (click)="toggleExpand()" class="mini-content">
+    <div
+      class="border top-border"
+      [style]="{ backgroundColor: item?.topColor }"
+    ></div>
+    <div
+      class="border bottom-border"
+      [style]="{ backgroundColor: item?.bottomColor }"
+    ></div>
+    <div class="header d-flex">
+      <h5 class="title m-0">{{ item?.title }}</h5>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">{{ item?.date }}</p>
+      <p class="m-0">{{ item?.total }}</p>
+    </div>
+  </div>
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <div class="login-info d-flex">
+      <div class="log-btn login-btn">
+        <span>LOG IN</span>
+        <span>{{ item?.loginTime }}</span>
+      </div>
+      <div class="log-btn logoff-btn">
+        <span>LOG OFF</span>
+        <span>{{ item?.logoffTime }}</span>
+      </div>
+    </div>
+    <hr />
+    <div class="hours-info d-flex">
+      <div class="working-hours">
+        <h6 class="title m-0">Working hours</h6>
+        <p class="info m-0">{{ item?.workingFrom }} to {{ item?.workingTo }}</p>
+      </div>
+      <div class="total-hours">
+        <h6 class="title m-0">Total</h6>
+        <p class="info m-0">{{ item?.total }}</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="attendance-item-wrap" [ngClass]="{ 'lang-ar': !localize.isEnglish() }">
+  <div (click)="toggleExpand()" class="mini-content">
+    <div
+      class="border top-border"
+      [style]="{ backgroundColor: topColor }"
+    ></div>
+    <div
+      class="border bottom-border"
+      [style]="{ backgroundColor: bottomColor }"
+    ></div>
+    <div class="header d-flex">
+      <h5 class="title m-0"  [style]="{ color: topColor }">
+        {{ localize.isEnglish() ? item.actualStatusNameFl : item.actualStatusNameSl}}
+      </h5>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">{{ item?.signIn | localizedDate }}</p>
+      <p class="m-0">{{ item?.total }}</p>
+    </div>
+  </div>
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <div class="login-info d-flex">
+      <div class="log-btn login-btn">
+        <span>{{ 'Data.IN' | translate }}</span>
+        <span>{{ item?.actualIn | date:'h:mm a':'':(localize.isEnglish() ? 'en':'ar') }}</span>
+      </div>
+      <div class="log-btn logoff-btn">
+        <span>{{ 'Data.OUT' | translate }}</span>
+        <span>{{ item?.actualOut | date:'h:mm a':'':(localize.isEnglish() ? 'en':'ar') }}</span>
+      </div>
+    </div>
+    <hr />
+    <div class="hours-info d-flex">
+      <div class="working-hours">
+        <h6 class="title m-0">{{ 'Data.actualWorkingHours' | translate }}</h6>
+        <p class="info m-0">{{ item?.actualWork | totalHours }} / {{ item?.expectedWork | totalHours }}</p>
+      </div>
+      <div class="total-hours">
+        <h6 class="title m-0"> {{ 'Data.TotalLate' | translate }}</h6>
+        <p class="info m-0">{{ item?.actualTotalLate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.attendance-wrap {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background: white;
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .filter-icon {
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+
+    .icon {
+      color: #e84855;
+      background-color: #fce5e7;
+      padding: 10px;
+      border-radius: 50%;
+      border: 1px solid #e84855;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        zoom: 1.5;
+      }
+    }
+  }
+}
+.action-btns {
+  margin-top: 30px;
+  .btn {
+    width: 100%;
+  }
+}

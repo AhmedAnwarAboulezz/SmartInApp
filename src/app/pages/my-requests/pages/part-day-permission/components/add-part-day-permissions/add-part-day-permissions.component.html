@@ -1,0 +1,227 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="base.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/myRequests/part-day/list"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.RequestPermission' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- <ion-grid>
+    <div class="form-input">
+      <ion-label position="stacked">type</ion-label>
+      <ion-item>
+        <ion-input placeholder="type"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-input">
+      <ion-label position="stacked">{{ 'Data.MonthYear' | translate }}</ion-label>
+      <ion-item>
+        <ion-datetime displayFormat="DDDD DD MMMM YYYY"></ion-datetime>
+        <ion-icon
+          name="calendar-clear-outline"
+          size="small"
+          slot="start"
+        ></ion-icon>
+      </ion-item>
+    </div>
+
+    <div class="form-input">
+      <ion-label position="stacked">Time</ion-label>
+      <ion-item>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="start">Start day</ion-select-option>
+          <ion-select-option value="end">End day</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <ion-row>
+      <ion-col>
+        <div class="form-input">
+          <ion-label position="stacked">Start Time</ion-label>
+          <ion-item>
+            <ion-datetime
+              display-format="h:mm A"
+              picker-format="h:mm A"
+            ></ion-datetime>
+            <ion-icon name="time-outline" size="small" slot="start"></ion-icon>
+          </ion-item>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div class="form-input">
+          <ion-label position="stacked">End Time</ion-label>
+          <ion-item>
+            <ion-datetime
+              display-format="h:mm A"
+              picker-format="h:mm A"
+            ></ion-datetime>
+            <ion-icon name="time-outline" size="small" slot="start"></ion-icon>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="form-input">
+    <ion-label position="stacked">Reason</ion-label>
+    <ion-item>
+      <ion-textarea placeholder="reasons" rows="6" cols="20"></ion-textarea>
+    </ion-item>
+  </div>
+
+  <div class="summary"> -->
+  <form #form="ngForm" (ngSubmit)="add()"> 
+    <ion-grid>
+      <div class="form-input">
+        <ion-label position="stacked">{{ 'Data.PermissionType' | translate}}</ion-label>
+        <ion-item  lines="none" class="mt-3 select-item">
+          <ion-select   name="partialPermissionTypeId" class="permission-select" [okText]="'Data.Ok' | translate"
+            [cancelText]="'Data.Cancel' | translate" #partialPermissionType   
+            [(ngModel)]="model?.employeePermissionDto.partialPermissionTypeId"
+            placeholder="{{ 'Data.Type' | translate}}" (ionChange)="getPermissionBalance(false)">
+            <ion-select-option *ngFor="let type of permissionTypes" [value]="type.id">
+              {{ base.isEnglish() ? type?.nameFl : type?.nameSl }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+  
+      <div class="form-input">
+        <ion-label position="stacked">{{'Data.Date' | translate}}</ion-label>
+        <ion-item>
+          <ion-datetime name="date" #picker displayFormat="DD MMMM YYYY"
+            [doneText]="'Data.Ok' | translate"   [cancelText]="'Data.Cancel' | translate"
+            [(ngModel)]="model?.employeePermissionDto.startDate" (ionChange)="getDutyWithLogs()"
+            placeholder="{{'Data.Date' | translate}}" [max]="maxData" [monthNames]="'Data.Months' | translate">
+          </ion-datetime>
+          <!-- <ion-datetime displayFormat="DDDD DD MMMM YYYY"></ion-datetime> -->
+        </ion-item>
+      </div>
+
+      <div class="form-input">
+        <ion-label position="stacked"> {{ 'Data.permissionTime' | translate}} </ion-label>
+        <ion-item>
+          <ion-select name="permissionTimeId" [okText]="'Data.Ok' | translate" style="border: none !important;"
+            [cancelText]="'Data.Cancel' | translate" [(ngModel)]="model?.employeePermissionDto.permissionTimeId"
+            (ionChange)="getBalanceInfo()" placeholder="{{ 'Data.Time' | translate}}" class="ion-text-start">
+            <ion-select-option *ngFor="let time of permissionTimes" [value]="time.id">
+              {{ base.isEnglish() ? time?.permissionTypeNameFl : time?.permissionTypeNameSl }}
+            </ion-select-option>
+          </ion-select>
+          <!-- <ion-label>Time</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="start">Start day</ion-select-option>
+            <ion-select-option value="end">End day</ion-select-option>
+          </ion-select> -->
+        </ion-item>
+      </div>
+
+
+      <div class="form-input">
+        <ion-label position="stacked">  </ion-label>
+      </div>
+
+      <ion-row>
+        <ion-col>
+          <div class="form-input">
+            <ion-label position="stacked"> {{ 'Data.StartTime' | translate}} </ion-label>
+            <ion-item>
+              <ion-input type="time" [(ngModel)]="model?.employeePermissionDto.startTime" name="startTime"
+                displayFormat="HH:mm"
+                [disabled]="model?.employeePermissionDto.permissionTimeId=='10000000-1000-1000-1000-100000000000'"
+                class="form-controll input-control" (focusout)="onStartTimeChange($event.target)" required>
+              </ion-input>
+              <!-- <ion-label>Start Time</ion-label>
+              <ion-datetime
+                display-format="h:mm A"
+                picker-format="h:mm A"
+              ></ion-datetime> -->
+            </ion-item>
+          </div>
+        </ion-col>
+  
+        <ion-col>
+          <div class="form-input">
+            <ion-label position="stacked"> {{ 'Data.EndTime' | translate}} </ion-label>
+            <ion-item>
+              <ion-input type="time" [(ngModel)]="model?.employeePermissionDto.endTime" name="endTime"
+                displayFormat="HH:mm"
+                [disabled]="model?.employeePermissionDto.permissionTimeId=='30000000-3000-3000-3000-300000000000'"
+                class="form-controll input-control" (focusout)="onEndTimeChange($event.target)" required>
+              </ion-input>
+            </ion-item>
+            <!-- <ion-item>
+              <ion-label>End Time</ion-label>
+              <ion-datetime
+                display-format="h:mm A"
+                picker-format="h:mm A"
+              ></ion-datetime>
+            </ion-item> -->
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="form-input">
+      <ion-label position="stacked"> {{ 'Data.Comment' | translate}} </ion-label>
+      <ion-item>
+        <ion-textarea rows="6" cols="20" [(ngModel)]="model?.employeePermissionDto.comment" name="comment"></ion-textarea>
+      </ion-item>
+    </div>
+
+  
+    <div class="summary">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <div class="title">{{ 'Data.Duration' | translate}} </div>
+            <div class="details" [class.inputred]="model?.employeePermissionDto.maxPeriod < model?.employeePermissionDto.permissionDuration">
+              {{model?.employeePermissionDto.permissionDuration}} /
+              {{(model?.employeePermissionDto.maxPeriod) == 0 ? '--' : (model?.employeePermissionDto.maxPeriod)}}
+            </div>
+          </ion-col>
+  
+          <ion-col size="6">
+            <div class="title">{{ 'Data.Allowances' | translate }}</div>
+            <div class="details">
+              {{model?.employeePermissionDto.totalAllowances}}
+            </div>
+          </ion-col>
+  
+          <ion-col size="6">
+            <div class="title">{{ 'Data.RemainingBalance' | translate}}</div>
+            <div class="details" [class.inputred]="model?.employeePermissionDto.remainingBalance < model?.employeePermissionDto.permissionDuration">
+              {{model?.employeePermissionDto.remainingBalance -
+                model?.employeePermissionDto.permissionDuration}} / {{model?.employeePermissionDto.balance}}
+            </div>
+          </ion-col>
+  
+          <ion-col size="6">
+            <div class="title">{{ 'Data.RemainingTimes' | translate}}</div>
+            <div class="details" [class.inputred]="model?.employeePermissionDto.remainingTime === 0 && model?.employeePermissionDto.numberOfTime!==0">
+              {{(model?.employeePermissionDto.remainingTime-1) < 0 ? 0 :
+                (model?.employeePermissionDto.remainingTime-1)}} / 
+                {{model?.employeePermissionDto.numberOfTime == 0 ? '--' :model?.employeePermissionDto.numberOfTime}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </form>  
+</ion-content>
+<ion-footer>
+  <div class="footer-btn">
+    <ion-button type="submit" expand="full" size="large" color="primary"  (click)="add()"
+      [disabled]="!model?.valid || !duty?.valid || disableSave == true">
+      {{ 'Data.Add' | translate }}
+    </ion-button>
+  </div>
+</ion-footer>
+
+
+

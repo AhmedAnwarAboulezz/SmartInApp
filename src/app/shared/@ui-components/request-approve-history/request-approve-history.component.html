@@ -1,0 +1,24 @@
+<hr />
+<div class="leader d-flex" [ngClass]="{ 'lang-ar': !localize.isEnglish() }" *ngFor="let step of item?.requestApproverHistoryList">
+  <div class="avatar">
+    <img src="assets/images/user.jpg" alt="avatar" />
+  </div>
+  <div class="text">
+    <div class="title">
+      <h5>
+        {{ localize.isEnglish() ? step?.approverNameFl : step?.approverNameSl }} 
+      </h5>
+      <span>
+        <ion-icon *ngIf="!step?.isTeam" name="business-outline"></ion-icon>
+        <ion-icon *ngIf="step?.isTeam"  name="people-outline"></ion-icon>
+        {{ localize.isEnglish() ? step?.nodeNameFl : step?.nodeNameSl }} 
+      </span>
+      <span [ngClass]="(step?.workflowStatusNameFl +'' | splitwhitespaces) + 'Request'">
+        ({{ localize.isEnglish() ? step?.workflowStatusNameFl : step?.workflowStatusNameSl }})
+      </span>  
+    </div>
+    <div class="date">{{step?.requestChangeDate | localizedDate: true }}</div>
+  </div>
+</div>
+<hr />
+<!-- <div class="creation-date"> {{ 'Data.CreatedDate' | translate }}: {{ item?.requestMainData.createdDate | localizedDate: true }}</div> -->

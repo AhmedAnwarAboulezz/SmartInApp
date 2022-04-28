@@ -1,0 +1,125 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="base.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/myRequests/full-day/list"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.RequestFullDayPermission' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <div class="form-input">
+      <ion-label position="stacked">{{ 'Data.PermissionType' | translate}}</ion-label>
+      <ion-item>
+        <ion-select   name="fullDayId" [okText]="'Data.Ok' | translate" [cancelText]="'Data.Cancel' | translate"
+          [(ngModel)]="model?.employeeFullDayPermissionDto.fullDayId" placeholder="{{ 'Data.PermissionType' | translate}}" required>
+          <ion-select-option *ngFor="let type of fulldayPermissionTypes" [value]="type.id">
+            {{ base.isEnglish() ? type?.nameFl : type?.nameSl }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-input">
+      <ion-label position="stacked">{{'Data.StartDate' | translate}}</ion-label>
+      <ion-item>
+        <ion-datetime 
+          name="startDate" #startPicker 
+          displayFormat="DD MMMM YYYY"
+          [doneText]="'Data.Ok' | translate"   
+          [cancelText]="'Data.Cancel' | translate"
+          [(ngModel)]="model?.employeeFullDayPermissionDto.startDate"
+           (ionChange)="calculateDates()"
+          placeholder="{{'Data.Date' | translate}}" 
+          [max]="maxData"
+          [monthNames]="'Data.Months' | translate">
+        </ion-datetime>
+        <ion-icon
+          name="calendar-clear-outline"
+          size="small"
+          slot="start"
+        ></ion-icon>
+      </ion-item>
+
+
+    </div>
+
+    <div class="form-input">
+      <ion-label position="stacked">{{'Data.EndDate' | translate}}</ion-label>
+      <ion-item>
+        <ion-datetime 
+          name="endDate" #endPicker           
+          displayFormat="DD MMMM YYYY"
+          [doneText]="'Data.Ok' | translate"   
+          [cancelText]="'Data.Cancel' | translate" 
+          [(ngModel)]="model?.employeeFullDayPermissionDto.endDate" 
+          (ionChange)="calculateDates()"
+          placeholder="{{'Data.EndDate' | translate}}" 
+          [max]="maxData"
+          [monthNames]="'Data.Months' | translate">
+        </ion-datetime>
+        <ion-icon
+          name="calendar-clear-outline"
+          size="small"
+          slot="start"
+        ></ion-icon>
+      </ion-item>
+    </div>
+
+    <div class="form-input">
+      <ion-label position="stacked">{{ 'Data.nameDays' | translate}}</ion-label>
+      <ion-item>
+        <ion-select multiple="true"  placeholder="{{ 'Data.nameDays' | translate}}" [(ngModel)]="weekdayIds" 
+         [okText]="'Data.Ok' | translate" [cancelText]="'Data.Cancel' | translate" name="weekdayId">
+          <ion-select-option *ngFor="let dayWeek of daysOfWeek" [value]="dayWeek.value"
+            [disabled]="dayWeek.disabled">
+            {{  dayWeek.name  }}
+          </ion-select-option>
+       </ion-select>
+      </ion-item>
+
+
+
+    </div>
+
+    <div class="upload-wrap">
+      <div class="title">{{'Data.UploadFile' | translate}}</div>
+      <div class="upload" (click)="file.click()">
+        <ion-icon name="cloud-upload" item-right></ion-icon>
+        <div class="hint">{{model.employeeFullDayPermissionDto.filePath}}</div>
+      </div>
+      <input class="fileInput" style="display: none;" #file type="file" 
+      (change)="loadImageFromDevice($event)" id="file-input"
+      accept="image/*, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document;capture=camera"
+     />
+      <div class="hint">{{'Data.UploadHint' | translate}}</div>
+    </div>
+  </ion-grid>
+
+  <div class="form-input mt-15">
+    <ion-label position="stacked">{{ 'Data.Comment' | translate}}</ion-label>
+    <ion-item>
+      <ion-textarea placeholder="reasons" rows="6" cols="20"  [(ngModel)]="model?.employeeFullDayPermissionDto.comment" name="comment"></ion-textarea>
+    </ion-item>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="footer-btn">
+    <ion-button
+    (click)="add()"
+    type="submit" 
+      expand="full"
+      size="large"
+      color="primary"
+      [disabled]="model?.employeeFullDayPermissionDto.comment ==null || 
+      model?.employeeFullDayPermissionDto.fullDayId ==null ||
+      model?.employeeFullDayPermissionDto.comment == '' ||
+      weekdayIds.length == 0
+      || disableSave == true">
+      {{ 'Data.Add'  | translate }}
+    </ion-button>
+  </div>
+</ion-footer>

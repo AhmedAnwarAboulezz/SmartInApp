@@ -1,0 +1,124 @@
+<div
+  [class]="'attendance-item-wrap ' + item?.requestMainData?.finalStatus"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <h5 class="title m-0">
+        {{ item?.title }}
+        {{
+          localize.isEnglish()
+            ? item?.employeeLeaveDto?.leaveNameFl
+            : item?.employeeLeaveDto?.leaveNameSl
+        }}
+      </h5>
+      <span [class]="'status ' + item?.requestMainData?.finalStatus">
+        {{
+          localize.isEnglish()
+            ? item?.requestMainData?.workflowStatus?.nameFl
+            : item?.requestMainData?.workflowStatus?.nameSl
+        }}
+      </span>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">{{ item?.employeeLeaveDto?.employeeNumber}} - 
+        {{localize.isEnglish() ? item?.employeeLeaveDto?.employeeNameFl : item?.employeeLeaveDto?.employeeNameSl}}
+      </p>
+    </div>
+    <hr />
+    <div class="permission-date d-flex">
+      <div class="title from">
+        <p>{{ 'Data.From' | translate }}</p>
+        <p> 
+          {{ item?.employeeLeaveDto?.startDate | localizedDate }}
+        </p>
+      </div>
+      <div class="title to">
+        <p>{{ 'Data.To' | translate }}</p>
+        <p>{{ item?.employeeLeaveDto?.endDate | localizedDate }}</p>
+      </div>
+      <div class="title total">
+        <p>{{ 'Data.Days' | translate }}</p>
+        <p>{{calculateDiff(item?.employeeLeaveDto?.startDate, item?.employeeLeaveDto?.endDate)}}</p>
+      </div>
+      <div class="title date">
+        <p>{{ 'Data.ActualDays' | translate }}</p>
+        <p>{{item?.employeeLeaveDto.actualDay}}</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <div class="permission-date d-flex text-center">
+      <div class="title total">
+        <p>{{ 'Data.AvailableBalance' | translate }}</p>
+        <p>{{base.getcasted(item?.employeeLeaveDto?.balance) }}</p>
+      </div>
+      <div class="title from">
+        <p>{{ 'Data.RemainingBalance' | translate }}</p>
+        <p>{{ base.getcasted(item?.employeeLeaveDto?.leftBalance) }}</p>
+      </div>
+    </div>
+    <div class="details">
+      {{ item?.employeeLeaveDto?.comment }}
+    </div>
+    <div *ngIf="isHistory === 'false'" class="action-btns d-flex mt-15 mb-15">
+      <div class="take-action d-flex">
+        <div class="approve">
+          <ion-button size="small"  (click)="showModal(true)" color="success"> 
+            <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+            {{ 'Data.Approve' | translate}}
+          </ion-button>
+        </div>
+        <div class="reject">
+          <ion-button size="small"  (click)="showModal(false)" color="danger">
+            <ion-icon name="close-outline" slot="start"></ion-icon>
+            {{ 'Data.Decline' | translate}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+    <app-request-approve-history [item]="item"></app-request-approve-history>
+  </div>
+
+</div>
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.confirmation' | translate}}</h2>
+    <div class="form">
+      <div class="action-btns d-flex">
+       
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+           {{'Data.Cancel' | translate}}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="
+              modal.toggleShow();
+              approve(item.requestMainData?.id,'',item?.employeePermissionDto?.startDate)
+              "
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+           {{'Data.confirm' | translate}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+

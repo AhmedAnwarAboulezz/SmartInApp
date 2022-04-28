@@ -1,0 +1,15 @@
+{
+  "HOST_API": "http://10.0.2.2/api/api/",
+  "Notification_API": "http://10.0.2.2/Notifications/hubs/notification",
+  "Logs_APIHub":"http://10.0.2.2/deviceLogs/hub/logs",
+  
+  "localHost": {
+    "host": "http://192.168.43.49/api/api/"
+  },
+  "publicHost": {
+    "host": "http://41.41.31.78/api/api/"
+  },
+  "URLS": {
+    "Login": "Authentication/Authenticate"
+  }
+}

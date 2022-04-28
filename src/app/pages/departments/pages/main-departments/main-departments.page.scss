@@ -1,0 +1,27 @@
+.main-departments-wrap {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .main-departments-content {
+    min-height: 100vh;
+  }
+
+  ion-segment-button {
+    font-size: 0.6rem;
+  }
+}
+
+.main-departments-wrap.lang-ar {
+  .icon-wrap {
+    text-align: left !important;
+  }
+}
+
+
+ion-label, ion-button{
+  text-transform: initial;
+}
+
+.main-departments-wrap ion-segment-button {
+  box-shadow: inset -1px 0px 8px 4px rgb(194 213 237 / 30%), -3px 17px 7px 0px rgb(194 213 237 / 30%);
+}

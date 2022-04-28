@@ -1,0 +1,136 @@
+<ion-content [fullscreen]="true">
+  <div class="center-content">
+    <div class="logo">
+      <img [src]="base.isEnglish() ? logoFl : logoSl" alt="logo" />
+    </div>
+    <div class="form">
+<!-- <<<<<<< HEAD
+      <h1 class="form-header">
+        login to {{base.isEnglish() ? organizationsData?.organizationNameFl :
+        organizationsData?.organizationNameSl}} attendance system
+      </h1>
+
+      <div class="form-input">
+        <ion-label position="stacked">Username</ion-label>
+        <ion-item>
+          <ion-input
+            [(ngModel)]="model.userName"
+            placeholder="username"
+          ></ion-input>
+          <ion-icon name="person-outline" size="small" slot="start"></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="form-input">
+        <ion-label position="stacked">Password</ion-label>
+        <ion-item>
+          <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="model.password"
+            placeholder="password"
+          ></ion-input>
+          <ion-icon name="bag-outline" size="small" slot="start"></ion-icon>
+          <ion-icon
+            (click)="togglePasswordType()"
+            [name]="passwordToggleIcon"
+            size="small"
+            slot="end"
+            class="toggle-password-icon"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+======= -->
+      <!-- <h1 class="form-header">{{'organization.loginInto' | translate}} "{{base.isEnglish() ? organizationsData?.organizationNameFl : organizationsData?.organizationNameSl}}" {{'organization.attendanceSys'  | translate}}</h1> -->
+
+      <div class="form-input">
+        <ion-label position="stacked">{{ 'Data.Username' | translate }}</ion-label>
+        <ion-item>
+          <ion-input [(ngModel)]="model.userName" name="username" type="text"
+          placeholder="{{ 'Data.Username' | translate }}" required></ion-input>
+          <ion-icon name="person-outline" size="small" slot="start"></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="form-input">
+        <ion-label position="stacked">{{ 'Data.Password' | translate }}</ion-label>
+        <ion-item>
+          <ion-input [type]="showPassword ? 'text' : 'password'"[(ngModel)]="model.password" name="password"
+          placeholder="{{ 'Data.Password' | translate }}" clearOnEdit="false" required></ion-input>
+          <ion-icon name="bag-outline" size="small" slot="start"></ion-icon>
+          <ion-icon
+            (click)="togglePasswordType()"
+            [name]="passwordToggleIcon"
+            size="small"
+            slot="end"
+            class="toggle-password-icon"
+          ></ion-icon>
+        </ion-item>
+      </div>
+      <ion-row *ngIf="model.isMobileBrowser == true">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item transparent>
+            <ion-label>{{ 'Data.RememberMe' | translate }} </ion-label>
+          <ion-checkbox  [(ngModel)]="model.rememberMe" slot="start" name="rememberMe" checked></ion-checkbox>
+        </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-button
+        (click)="login()"
+        class="submit-btn"
+        color="danger"
+        expand="block"
+      >
+      {{ 'Data.Login' | translate }}
+      </ion-button>
+      <ion-button
+      (click)="forgetPassword()"
+        class="forget-btn"
+        color="danger"
+        fill="outline"
+        expand="block"
+      >
+      {{'Data.ForgotPassword' |translate}}
+      </ion-button>
+      <ion-button class="mt-15"
+        fill="outline"
+        expand="block"
+        size="small"
+        color="medium" 
+        (click)="changeorganization()" >{{'organization.changeorganization' | translate}}
+
+      </ion-button>
+      <!-- <ion-button class="mt-15"
+        fill="outline"
+        expand="block"
+        size="small"
+        color="medium" 
+        *ngIf="!base.isEnglish()" 
+        (click)="base.setLanguage('en')"
+      >
+        English
+      </ion-button>
+      <ion-button  class="mt-15"
+        fill="outline"
+        expand="block"
+        size="small"
+        color="medium"
+        *ngIf="base.isEnglish()" 
+        (click)="base.setLanguage('ar')"
+        > عربى
+      </ion-button> -->
+    </div>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-md="3">
+        <ion-button class="ion-button-class" color="danger" expand="block" *ngIf="!base.isEnglish()" (click)="base.setLanguage('en')"
+            shape="round"  size="small">English
+        </ion-button>
+        <ion-button class="ion-button-class" color="danger" expand="block" *ngIf="base.isEnglish()" (click)="base.setLanguage('ar')"
+          shape="round" size="small">عربى
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

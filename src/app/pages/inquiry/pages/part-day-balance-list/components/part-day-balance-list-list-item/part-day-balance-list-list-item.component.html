@@ -1,0 +1,44 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div  class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0"> {{ localize.isEnglish() ? item.permissionNameFl :item.permissionNameSl }}</p>
+    
+    </div>
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Remaining' | translate }}</p>
+        <p class="date mt-5 mb-5"> {{ item.remainingBalance }} / {{ item.balance }} {{
+          'Data.Miute' | translate }}</p>
+      </div>
+  </div>
+    <hr />
+
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.remainingTime' | translate }}</p>
+        <p class="date mt-5 mb-5">{{ item.remainingTime }} / {{ item.numberOfTime}}</p>
+      </div>
+
+      <div *ngIf="!item.useDutyAllowance" class="permission-date from">
+        <p class="title m-0">{{ 'Data.useDutyAllowance' | translate }}</p>
+        <p class="mt-5 mb-5"> {{ 'Data.false' | translate}}</p>
+      </div>
+      <div *ngIf="item.useDutyAllowance" class="permission-date from">
+        <p class="title m-0">{{ 'Data.useDutyAllowance' | translate }}</p>
+        <p class="mt-5 mb-5"> {{ 'Data.true' | translate}}</p>
+      </div>
+
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.maxPeriod' | translate }}</p>
+        <p class="mt-5 mb-5">{{  item.maxPeriod  }}</p>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+

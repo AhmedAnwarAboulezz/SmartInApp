@@ -1,0 +1,43 @@
+.main-header {
+  --background: #f6f9fd;
+  --color: #231f20;
+}
+
+.filter-wrap {
+  .date {
+    color: #abbbcf;
+  }
+}
+
+.icon {
+  color: #e84855;
+  background-color: #fce5e7;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #e84855;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-icon {
+    zoom: 1.5;
+  }
+}
+.footer-btn {
+  background-color: #ffffff;
+  padding: 15px;
+}
+
+.summary {
+  margin-top: 30px;
+  .title {
+    color: #8594a7;
+    margin-bottom: 10px;
+  }
+}
+
+
+.inputred{
+  color: red;
+}
+

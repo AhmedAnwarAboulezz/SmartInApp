@@ -1,0 +1,128 @@
+<ion-grid *ngIf="isLoading">
+  <ion-row>
+    <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+      <ion-spinner color="primary"></ion-spinner>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<div class="dashboard-wrap" *ngIf="!isLoading">
+  <div class="attendance-absence">
+    <h3>{{'Data.Attendance' |translate}} / {{'Data.Absence' | translate }} {{'Data.Today' | translate }}
+    </h3>
+    <ion-row *ngIf="!attendanceShow">
+      <ion-col class="ion-text-center">
+        <p>{{'Data.loading' | translate}}</p>
+        <ion-spinner color="primary" name="lines"></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <apx-chart *ngIf="attendanceShow"
+      [series]="attendance.series"
+      [plotOptions]="attendance.plotOptions"
+      [colors]="attendance.colors"
+      [chart]="attendance.chart"
+      [labels]="attendance.labels"
+      [legend]="attendance.legend"
+      [plotOptions]="attendance.plotOptions"
+    ></apx-chart>
+  </div>
+
+  <hr />
+
+  <div class="attendance-absence">
+    <h3>{{'Data.Lates' |translate}} {{'Data.Today' | translate }}
+    </h3>
+    <ion-row *ngIf="!latesShow">
+      <ion-col class="ion-text-center">
+        <p>{{'Data.loading' | translate}}</p>
+        <ion-spinner color="primary" name="lines"></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <apx-chart *ngIf="latesShow"
+      [series]="lates.series"
+      [plotOptions]="lates.plotOptions"
+      [colors]="lates.colors"
+      [chart]="lates.chart"
+      [labels]="lates.labels"
+      [legend]="lates.legend"
+      [plotOptions]="lates.plotOptions"
+    ></apx-chart>
+  </div>
+  <hr />
+  <div class="attendance-absence">
+    <h3>{{'Data.Allowances' |translate}} {{'Data.Today' | translate }}
+    </h3>
+    <!-- <ion-row *ngIf="!allowanceShow">
+      <ion-col class="ion-text-center">
+        <p>{{'Data.noDataMsg' | translate}}</p>
+      </ion-col>
+    </ion-row> -->
+    <apx-chart
+      [series]="allowance.series"
+      [plotOptions]="allowance.plotOptions"
+      [colors]="allowance.colors"
+      [chart]="allowance.chart"
+      [labels]="allowance.labels"
+      [legend]="allowance.legend"
+      [plotOptions]="allowance.plotOptions"
+    ></apx-chart>
+  </div>
+  <hr />
+  <div class="attendance-absence">
+    <h3>{{'Data.FullDayPermission' |translate}} {{'Data.Today' | translate }}
+    </h3>
+    <!-- <ion-row *ngIf="!fulldayPermissionShow">
+      <ion-col class="ion-text-center">
+        <p>{{'Data.noDataMsg' | translate}}</p>
+      </ion-col>
+    </ion-row> -->
+    <apx-chart 
+      [series]="fulldays.series"
+      [plotOptions]="fulldays.plotOptions"
+      [colors]="fulldays.colors"
+      [chart]="fulldays.chart"
+      [labels]="fulldays.labels"
+      [legend]="fulldays.legend"
+      [plotOptions]="fulldays.plotOptions"
+    ></apx-chart>
+  </div>
+  <hr />
+
+  <div class="attendance-absence">
+    <h3>{{'Data.PartDayPermission' |translate}} {{'Data.Today' | translate }}
+    </h3>
+    <!-- <ion-row *ngIf="!partdayPermissionShow">
+      <ion-col class="ion-text-center">
+        <p>{{'Data.noDataMsg' | translate}}</p>
+      </ion-col>
+    </ion-row> -->
+    <apx-chart 
+      [series]="partdays.series"
+      [plotOptions]="partdays.plotOptions"
+      [colors]="partdays.colors"
+      [chart]="partdays.chart"
+      [labels]="partdays.labels"
+      [legend]="partdays.legend"
+      [plotOptions]="partdays.plotOptions"
+    ></apx-chart>
+  </div>
+  <hr />
+
+  <div class="attendance-absence">
+    <h3>{{'Data.Leaves' |translate}} {{'Data.Today' | translate }}
+    </h3>
+    <!-- <ion-row *ngIf="!leavesShow">
+      <ion-col class="ion-text-center">
+        <p>{{'Data.noDataMsg' | translate}}</p>
+      </ion-col>
+    </ion-row> -->
+    <apx-chart 
+      [series]="leaves.series"
+      [plotOptions]="leaves.plotOptions"
+      [colors]="leaves.colors"
+      [chart]="leaves.chart"
+      [labels]="leaves.labels"
+      [legend]="leaves.legend"
+      [plotOptions]="leaves.plotOptions"
+    ></apx-chart>
+  </div>
+</div>

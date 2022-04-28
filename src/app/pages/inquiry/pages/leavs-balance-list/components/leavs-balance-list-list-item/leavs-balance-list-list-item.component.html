@@ -1,0 +1,35 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0">{{ localize.isEnglish() ? item.leaveNameFl :item.leaveNameSl }}</p>
+      <span class="status present">{{ localize.isEnglish() ? item.leaveTypeFl :item.leaveTypeSl }}</span>
+     
+    </div>
+    <hr />
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.balanceYear' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.balance}}</p>
+      </div>
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Used' | translate }}</p>
+        <p class="mt-5 mb-5"> {{ item.usedBalance }} / {{ item.balance + item.perviousBalance }}</p>
+      </div>  
+    </div>
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.perviousBalance' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.perviousBalance  }}</p>
+      </div>
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Remaining' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.remainingBalance  }}</p>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

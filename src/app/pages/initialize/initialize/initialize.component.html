@@ -1,0 +1,28 @@
+
+<ion-content [fullscreen]="true" *ngIf="isMobile">
+    <div class="center-content">
+      <div class="logo">
+        <!-- <img src="assets/download.png" alt="logo" /> -->
+        <!-- <img src="assets/splash.png" alt="logo" /> -->
+        <img src="assets/splashImage2.png" alt="logo" />
+      </div>
+      <!-- <p class="footer-text">{{ 'Data.Rights' | translate }}</p> -->
+      <!-- <div class="footer-text">{{ 'organization.timeAttendance' | translate }}</div> -->
+    </div>
+  </ion-content>
+  <ion-content [fullscreen]="true" *ngIf="!isMobile">
+    <div class="center-content2">
+      <div class="logo2">
+        <!-- <img src="assets/download.png" alt="logo" /> -->
+        <img src="assets/splash.png" alt="logo" />        
+      </div>
+      <!-- <p class="footer-text">{{ 'Data.Rights' | translate }}</p> -->
+      <!-- <div class="footer-text">{{ 'organization.timeAttendance' | translate }}</div> -->
+    </div>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar color="favorite" class="ion-text-center">
+      <p>{{ 'Data.copy' | translate }}{{year}}-{{ 'Data.Rights' | translate }}</p>
+    </ion-toolbar>
+  </ion-footer>
+  

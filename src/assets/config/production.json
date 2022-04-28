@@ -1,0 +1,21 @@
+{
+  "HOST_API": "http://62.215.242.206:8051/",
+  "Notification_API": "http://62.215.242.206:8056/hubs/notification",
+  "Logs_APIHub": "http://62.215.242.206:8052/hub/logs",
+  "Logout_APIHub": "http://62.215.242.206:8071/hub/logout",
+
+  "HOST_API0": "http://192.168.1.250/api/api/",
+  "Notification_API0": "http://192.168.1.250/Notifications/hubs/notification",
+  "Logs_APIHub0": "http://192.168.1.250/deviceLogs/hub/logs",
+  "Logout_APIHub0": "http://192.168.1.250/users/hub/logout",
+
+  "localHost": {
+    "host": "http://192.168.43.49/api/api/"
+  },
+  "publicHost": {
+    "host": "http://41.41.31.78/api/api/"
+  },
+  "URLS": {
+    "Login": "Authentication/Authenticate"
+  }
+}

@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="localize.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/requests/main-manager-requests"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.OverTimeRequests' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-segment
+    color="danger"
+    (ionChange)="segmentChanged($event)"
+    [value]="filter.isHistory"
+  >
+    <ion-segment-button value="false">
+      <ion-label>{{ 'Data.Pending' |  translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="true">
+      <ion-label>{{ 'Data.History' |  translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="filter-wrap d-flex mt-15">
+    <div class="date">{{filter.date | localizedMonthYear}}</div>
+    <div class="filter-icon">
+      <div class="icons">
+        <div (click)="showModal()" class="icon filter-icon">
+          <ion-icon name="funnel-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-grid *ngIf="isLoading">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading && (!pendingRequests || pendingRequests.length <= 0)">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <p>{{ 'Data.noDataMsg' | translate}} </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="card-items" *ngIf="!isLoading && pendingRequests.length > 0">
+    <ng-container *ngFor="let request of pendingRequests">
+      <div class="mt-15">
+        <app-manager-over-time-list-item [item]="request" [isHistory]="filter.isHistory" (action)="action($event)"></app-manager-over-time-list-item>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
+
+
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.filter' | translate}}</h2>
+    <div class="form">
+      <div class="form-input filter">
+        <ion-label position="stacked">{{ 'Data.MonthYear' | translate }}</ion-label>
+        <ion-item>
+          <ion-datetime
+            placeholder="{{ 'Data.MonthYear' | translate }}"
+            displayFormat="MMMM YYYY"
+            [(ngModel)]="filter.date"
+              cancelText="{{'Data.Cancel' | translate}}"
+              doneText="{{'Data.Ok' | translate}}"
+              [max]="maxData"
+              [monthNames]="'Data.Months' | translate"
+          ></ion-datetime>
+          <ion-icon
+            name="calendar-clear-outline"
+            size="small"
+            slot="start"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="action-btns d-flex">
+
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+            {{ 'Data.Clear' | translate }}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="modal.toggleShow();
+            fetchData();"
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+            {{ 'Data.Apply' | translate }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

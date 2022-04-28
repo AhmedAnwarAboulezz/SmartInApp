@@ -1,0 +1,38 @@
+<ion-content [fullscreen]="true">
+  <div class="modal-wrap">
+    <div class="backdrop"></div>
+    <div class="filter-content">
+      <h3 class="title">{{'Data.filter' | translate}}</h3>
+      <div class="form">
+        <ion-item>
+          <ion-label position="floating">From date</ion-label>
+          <ion-datetime displayFormat="DDDD DD MMMM YYYY"></ion-datetime>
+        </ion-item>
+
+        <div class="action-btns d-flex">
+
+          <div class="btn reset-btn">
+            <ion-button
+              (click)="resetFilter()"
+              class="submit-btn"
+              color="light"
+              expand="full"
+            >
+              {{ 'Data.Clear' | translate }}
+            </ion-button>
+          </div>
+          <div class="btn apply-btn">
+            <ion-button
+              (click)="dismiss()"
+              class="submit-btn"
+              color="danger"
+              expand="full"
+            >
+              {{ 'Data.Apply' | translate }}
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

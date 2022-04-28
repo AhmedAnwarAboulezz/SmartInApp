@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border">
+  <app-main-header></app-main-header>
+</ion-header>
+
+<div class="center-content">
+  <div
+    class="main-departments-wrap"
+    [ngClass]="{'lang-ar': !localize.isEnglish()}"
+  >
+    <ion-content class="main-departments-content">
+      <ion-segment
+        color="danger"
+        (ionChange)="segmentChanged($event)"
+        [value]="activeTab"
+      >
+        <ion-segment-button value="dashboard">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+          <ion-label>{{'Data.ManagerDashboard' | translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="attendance">
+          <ion-icon name="finger-print-outline"></ion-icon>
+          <ion-label>{{'Data.Attendance' | translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="transations">
+          <ion-icon name="code-working-outline"></ion-icon>
+          <ion-label>{{'Data.transation' | translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="other">
+          <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          <ion-label>{{'Data.Others' | translate}}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <app-dashboard *ngIf="activeTab === 'dashboard'"></app-dashboard>
+      <app-attendance *ngIf="activeTab === 'attendance'"></app-attendance>
+      <app-transations *ngIf="activeTab === 'transations'"></app-transations>
+      <app-other *ngIf="activeTab === 'other'"></app-other>
+    </ion-content>
+  </div>
+</div>

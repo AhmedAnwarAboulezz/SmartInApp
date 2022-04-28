@@ -1,0 +1,39 @@
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  padding: 30px;
+}
+
+// .logo {
+//   margin-bottom: 100px;
+// }
+
+.form {
+  width: 100%;
+  .submit-btn {
+    margin-top: 2rem;
+  }
+
+  .forget-btn {
+    margin-top: 1rem;
+  }
+}
+
+.form-header {
+  margin-bottom: 1.3rem;
+  text-align: center;
+    font-weight: 600;
+}
+
+.footer-text {
+  margin-top: auto;
+  font-size: 1.5rem;
+  color: #434343;
+}
+
+.ion-button-class{
+  width: fit-content;
+}

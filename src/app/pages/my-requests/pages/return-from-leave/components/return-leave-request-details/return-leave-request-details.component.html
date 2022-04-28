@@ -1,0 +1,244 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="base.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/myRequests/main-my-requests"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.RequestReturnLeave' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-grid *ngIf="isLoading">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <p>{{'Data.loading' | translate}}</p>
+              <ion-spinner color="primary" name="lines"></ion-spinner>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-row *ngIf="noDataFound">
+          <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+            <p>{{ 'Data.noDataMsg' | translate}} </p>
+          </ion-col>
+        </ion-row>
+        <div *ngIf="!isLoading && !noDataFound">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="none" class="mt-2 mb-2">
+                  <ion-label class="summary-title">
+                    {{ base.isEnglish() ? model?.employeeLeaveReturnDto?.leaveNameFl : model?.employeeLeaveReturnDto?.leaveNameSl
+                    }}
+                    <p>
+                      {{ 'Data.From' | translate}} : {{ model?.employeeLeaveReturnDto?.startDate | localizedDate }}
+                    </p>
+                    <p>
+                      {{ 'Data.To' | translate}} : {{ model?.employeeLeaveReturnDto?.endDate | localizedDate }}
+                    </p>
+                    <p>
+                      {{ 'Data.ReturnDate' | translate}} : {{ model?.employeeLeaveReturnDto?.returnDate | localizedDate }}
+                    </p>
+                  </ion-label>
+                  <ion-text *ngIf="model?.requestApproverHistoryList">
+                    <h4  class="status"[ngClass]="(model?.requestApproverHistoryList[0].workflowStatusNameFl+'' | splitwhitespaces)  + 'Request'" >
+                      <ion-icon [name]="model?.requestApproverHistoryList[0].workflowStatusId == workflowStatus.Approve ? 
+                          'checkmark-done-outline' : 
+                          model?.requestApproverHistoryList[0].workflowStatusId == workflowStatus.Reject? 
+                          'close-outline' : 'hourglass-outline'"
+                          [ngClass]="(model?.requestApproverHistoryList[0].workflowStatusNameFl+'' | splitwhitespaces) + 'Request'">
+                      </ion-icon>
+                        {{ base.isEnglish() ? model.requestApproverHistoryList[0].workflowStatusNameFl
+                        : model.requestApproverHistoryList[0].workflowStatusNameSl }}
+                    </h4>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>  
+          <ion-segment (ionChange)="segmentChanged($event.target)" value="1">
+            <ion-segment-button value="1">
+              <ion-label>{{ 'Data.Summary' | translate }}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2">
+              <ion-label>{{ 'Data.Details' | translate }}</ion-label>
+            </ion-segment-button>
+          </ion-segment>  
+          <div class="card-items" *ngIf="segmentValue == true">
+            <ng-container>
+              <div class="mt-15">
+                <div class="text-center summary">
+                  <ion-label>
+                    {{ base.isEnglish() ? model?.employeeLeaveReturnDto?.leaveTypeFl : model?.employeeLeaveReturnDto?.leaveTypeSl }}
+                  </ion-label>
+                </div>
+                <div class="text-center summary">
+                  <ion-label>
+                    {{ 'Data.Days' | translate }}: 
+                    <div lines="none" class="numberCircle">
+                      <span>                        
+                        {{model?.employeeLeaveReturnDto?.actualDays}}     
+                      </span>
+                    </div>
+                  </ion-label>
+                  <ion-label style="color: red;font-weight: 600">
+                    {{ model?.actualReturnDate !== null ? ('Data.LateReturn' | translate) : ('Data.EarlyReturn' | translate) }}
+                  </ion-label>
+                </div>
+                <app-request-approve-history [item]="model"></app-request-approve-history>
+              </div>
+            </ng-container>
+          </div>
+          <div *ngIf="segmentValue == false" class="mt-2">
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.LeaveType' | translate}}</ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>
+                    {{ base.isEnglish() ? model?.employeeLeaveReturnDto?.leaveTypeFl : model?.employeeLeaveReturnDto?.leaveTypeSl
+                    }}
+                  </ion-label>
+                </ion-item>  
+              </ion-col>
+            </ion-row>  
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.From' | translate}}</ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ model?.employeeLeaveReturnDto.startDate | localizedDate }}
+                  </ion-label>
+                </ion-item>  
+              </ion-col>
+            </ion-row>  
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.To' | translate}}</ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ model?.employeeLeaveReturnDto.endDate | localizedDate }}
+                  </ion-label>
+                </ion-item>  
+              </ion-col>
+            </ion-row>  
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.ActualDays' | translate}}</ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label *ngIf="model?.requestApproverHistoryList">
+                    {{model?.employeeLeaveReturnDto.actualDays}}  
+                  </ion-label>
+                </ion-item>  
+              </ion-col>
+            </ion-row>  
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.AvailableBalance' | translate}}</ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label *ngIf="model?.requestApproverHistoryList">
+                    {{model?.employeeLeaveReturnDto.balance}}
+                  </ion-label>
+                </ion-item>  
+              </ion-col>
+            </ion-row>  
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>
+                    {{ 'Data.RemainingDays' | translate }}
+                  </ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>
+                    {{model?.employeeLeaveReturnDto?.leftBalance}}
+                  </ion-label>
+                </ion-item>  
+              </ion-col>
+            </ion-row>          
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.PaidDays' | translate}}</ion-label>
+                </ion-item>  
+              </ion-col>  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label *ngIf="model?.requestApproverHistoryList">
+                    {{model?.employeeLeaveReturnDto.payedDay}}  
+                  </ion-label>
+                </ion-item>  
+              </ion-col>            
+            </ion-row>  
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.ReturnDate' | translate}}</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label *ngIf="model?.requestApproverHistoryList">
+                    {{model?.employeeLeaveReturnDto.returnDate | localizedDate}}
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row class="text-center">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.Comment' | translate}}</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>
+                    {{model.employeeLeaveReturnDto.reason}}
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row class="text-center" *ngIf="model?.employeeLeaveReturnDto.fileName !== ''&& model?.employeeLeaveReturnDto.fileName !== null">
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>{{ 'Data.UploadedFile' | translate}}</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6" class="ion-no-padding">
+                <ion-item lines="none" class="text-center">
+                  <ion-label>
+                    <ion-button color="danger"  (click)="getDocument(model.employeeLeaveReturnDto.fileName)">
+                      <ion-icon name="cloud-download-outline"></ion-icon>
+                    </ion-button>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

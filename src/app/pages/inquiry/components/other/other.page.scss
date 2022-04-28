@@ -1,0 +1,224 @@
+// .main-header {
+//   --background: #f6f9fd;
+//   --color: #231f20;
+// }
+
+// // .filter-wrap {
+// //   .date {
+// //     color: #abbbcf;
+// //   }
+// // }
+
+// .icons {
+//   display: flex;
+//   align-items: center;
+//   margin-top: 15px;
+//   margin-bottom: 15px;
+
+//   .filter-icon {
+//     margin-right: 10px;
+//     margin-left: 10px;
+//   }
+
+//   .icon {
+//     color: #e84855;
+//     background-color: #fce5e7;
+//     padding: 10px;
+//     border-radius: 50%;
+//     border: 1px solid #e84855;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     ion-icon {
+//       zoom: 1.5;
+//     }
+//   }
+// }
+// .footer-btn {
+//   background-color: #ffffff;
+//   padding: 15px;
+// }
+
+// .action-btns {
+//   margin-top: 30px;
+//   .btn {
+//     width: 100%;
+//   }
+// }
+
+// .attendance-item-wrap {
+//   border-left: 2px solid #abbbcf;
+
+//   .mini-content {
+//     position: relative;
+//     padding: 0px 15px;
+//     border-radius: 5px;
+
+//     .header {
+//       margin-bottom: 10px;
+//       .status {
+//         padding: 5px 10px;
+//         border-radius: 15px;
+//         font-size: 0.8rem;
+//         &.present {
+//           color: #147ad6;
+//           background-color: #147ad630;
+//         }
+//         &.absence {
+//           color: #e84855;
+//           background-color: #e8485530;
+//         }
+//         &.restDay {
+//           background-color: #fdc01c;
+//         }
+//         &.lateIn {
+//           color: #e84855;
+//           background-color: #e8485530;
+//         }
+//         &.earlyOut {
+//           color: #e84855;
+//           background-color: #e8485530;
+//         }
+//         &.weekend {
+//           background-color: #646464;
+//         }
+//       }
+//     }
+
+//     .content {
+//       font-size: 0.8rem;
+//       .name {
+//         margin-left: 10px;
+//         margin-right: 10px;
+//       }
+//       .name,
+//       .icon {
+//         color: #8594a7;
+//       }
+//     }
+
+//     .expand-icons {
+//       transition: all 0.2s ease-in-out;
+
+//       &.expanded {
+//         transform: rotate(90deg);
+//       }
+//     }
+
+//     hr {
+//       background-color: #abbbcf45;
+
+//       height: 2px;
+//     }
+
+//     .permission-date {
+//       .title {
+//         color: #8594a7;
+//         p.date {
+//           color: #147ad6;
+//         }
+//       }
+//     }
+//   }
+
+//   .expanded-content {
+//     overflow: hidden;
+//     padding: 0;
+//     height: 0;
+//     transition: all 0.2s ease-in-out;
+
+//     &.expanded {
+//       height: auto;
+//       padding: 15px;
+//     }
+
+//     .details {
+//       background-color: #e7eef88c;
+//       padding: 15px;
+//       border-radius: 5px;
+//     }
+
+//     .leader {
+//       align-items: flex-end;
+//       .avatar {
+//         width: 50px;
+//         height: 50px;
+//         border-radius: 100%;
+//         overflow: hidden;
+//       }
+
+//       .text {
+//         margin-right: auto;
+//         margin-left: 15px;
+//         .date {
+//           color: #97aac2;
+//           font-size: 0.8rem;
+//         }
+//       }
+//     }
+
+//     .creation-date {
+//       color: #434343;
+//       text-align: center;
+//       font-size: 0.75rem;
+//       margin-top: 15px;
+//     }
+//   }
+//   .text-center {
+//     text-align: center;
+//   }
+// }
+
+// .attendance-item-wrap.lang-ar {
+//   .leader {
+//     .text {
+//       margin-right: 15px !important;
+//       margin-left: auto !important;
+//     }
+//   }
+// }
+
+// .attendance-item-wrap.lang-ar {
+//   .mini-content {
+//     .expand-icons {
+//       &.expanded {
+//         transform: rotate(-90deg);
+//       }
+//     }
+//   }
+// }
+
+
+.my-requests-wrap {
+  overflow-y: auto;
+  height: 66%;
+  .card-items {
+    .item-wrap {
+      border: 2px solid #e7eef8;
+      border-radius: 8px;
+      padding: 15px;
+      height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .icon-wrap {
+        text-align: right;
+      }
+
+      .item-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .title {
+        margin-top: 10px;
+        color: #434343;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+}

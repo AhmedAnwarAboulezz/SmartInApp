@@ -1,0 +1,30 @@
+.my-requests-wrap {
+  .card-items {
+    .item-wrap {
+      border: 2px solid #e7eef8;
+      border-radius: 8px;
+      padding: 15px;
+      height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .icon-wrap {
+        text-align: right;
+      }
+
+      .item-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .title {
+        margin-top: 10px;
+        color: #434343;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+}

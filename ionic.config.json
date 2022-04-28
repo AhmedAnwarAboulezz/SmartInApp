@@ -1,0 +1,8 @@
+{
+  "name": "apex_mobile_app",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

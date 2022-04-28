@@ -1,0 +1,31 @@
+ion-tab-button {
+  --color: #434343;
+  --color-selected: #e84855;
+}
+
+// #main-tabs {
+//   display: none;
+// }
+
+.main-departments-wrap {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .main-departments-content {
+    min-height: 100vh;
+  }
+
+  ion-segment-button {
+    font-size: 0.6rem;
+  }
+}
+
+.main-departments-wrap.lang-ar {
+  .icon-wrap {
+    text-align: left !important;
+  }
+}
+
+.isSelected{
+  color: #e84855;
+}

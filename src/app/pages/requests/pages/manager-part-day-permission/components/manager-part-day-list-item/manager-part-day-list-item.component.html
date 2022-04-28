@@ -1,0 +1,98 @@
+<div
+  [class]="'attendance-item-wrap ' + item?.requestMainData?.finalStatus"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <h5 class="title m-0">
+        {{ localize.isEnglish() ? item?.employeePermissionDto?.partialPermissionFl : item?.employeePermissionDto?.partialPermissionSl }}
+      </h5>
+      <span [class]="'status ' + item?.requestMainData?.finalStatus">
+        <!-- {{item?.requestMainData?.finalStatus}} -->
+        {{ localize.isEnglish() ? item?.requestMainData?.workflowStatus?.nameFl : item?.requestMainData?.workflowStatus?.nameSl }}
+      </span>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">{{ item?.employeePermissionDto?.employeeNumber}} - 
+        {{localize.isEnglish() ? item?.employeePermissionDto?.employeeNameFl : item?.employeePermissionDto?.employeeNameSl}}
+      </p>
+    </div>
+    <hr />
+    <div class="permission-date d-flex">
+      <div class="title date">
+        <p>{{ 'Data.Date' | translate}}</p>
+        <p class="date">{{ item?.employeePermissionDto?.startDate | localizedDate }}</p>
+      </div>
+      <div class="title from">
+        <p>{{ 'Data.From' | translate}}</p>
+        <p>{{ item?.employeePermissionDto?.startTime | timeSpanPipe }}</p>
+      </div>
+      <div class="title to">
+        <p>{{ 'Data.To' | translate}}</p>
+        <p>{{ item?.employeePermissionDto?.endTime | timeSpanPipe}}</p>
+      </div>
+      <div class="title total">
+        <p>{{ 'Data.Total' | translate}}</p>
+        <p>{{ item?.employeePermissionDto?.permissionDuration}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <div class="details">
+      {{ item?.employeePermissionDto?.comment }}
+    </div>
+    <div *ngIf="isHistory === 'false'" class="action-btns d-flex mt-15 mb-15">
+      <div class="take-action d-flex">
+        <div class="approve">
+          <ion-button size="small"  (click)="showModal(true)" color="success"> 
+            <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+            {{ 'Data.Approve' | translate}}
+          </ion-button>
+        </div>
+        <div class="reject">
+          <ion-button size="small"  (click)="showModal(false)" color="danger">
+            <ion-icon name="close-outline" slot="start"></ion-icon>
+            {{ 'Data.Decline' | translate}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+    <app-request-approve-history [item]="item"></app-request-approve-history>
+  </div>
+</div>
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.confirmation' | translate}}</h2>
+    <div class="form">
+      <div class="action-btns d-flex">
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+           {{'Data.Cancel' | translate}}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="
+              modal.toggleShow();
+              approve(item.requestMainData?.id,'',item?.employeePermissionDto?.startDate)
+              "
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+           {{'Data.confirm' | translate}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

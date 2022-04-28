@@ -1,0 +1,37 @@
+<div
+  class="attendance-item-wrap present"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0">
+        <ion-icon class="icon" name="person" ></ion-icon>        
+        {{ item?.employeeNumber }} - {{ localize.isEnglish() ? item?.employeeNameFl : item?.employeeNameSl }}  
+      </p>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">
+        <ion-icon class="icon" name="business-outline"></ion-icon>
+        <span  class="name"> {{ localize.isEnglish() ? item.administrationFl :item.administrationSl }}</span>
+      </p>
+    </div>
+    <hr />
+
+    <div class="content d-flex">
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Month' | translate }}</p>
+        <p class="date mt-5 mb-5">{{ item.month | monthName }}</p>
+      </div>
+      
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.Days' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.deductionNumberAmount }}</p>
+      </div>
+      <div class="permission-date from">
+        <p class="title m-0">{{ 'Data.TotalLate' | translate }}</p>
+        <p class="mt-5 mb-5">{{ item.total  }}</p>
+      </div>
+    
+    </div>
+  </div>
+</div>

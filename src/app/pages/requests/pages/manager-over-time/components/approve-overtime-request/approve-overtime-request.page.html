@@ -1,0 +1,183 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="base.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/requests/manager-over-time"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.ApproveRequest' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-grid *ngIf="isLoading">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <p>{{'Data.loading' | translate}}</p>
+              <ion-spinner color="primary" name="lines"></ion-spinner>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-row *ngIf="noDataFound">
+          <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+            <p>{{ 'Data.noDataMsg' | translate}} </p>
+          </ion-col>
+        </ion-row>
+        <div *ngIf="!isLoading && !noDataFound">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="none" class="mt-2 mb-2">
+                  <!-- <ion-avatar slot="start">
+                    <img src="assets/images/user.jpg" />
+                  </ion-avatar> -->
+                  <ion-label class="summary-title">
+                    {{ 
+                      base.isEnglish() ? model?.employeeOverTimeDto?.approveOverTime?.descriptionFl :
+                      model?.employeeOverTimeDto?.approveOverTime?.descriptionSl !== null ?
+                      model?.employeeOverTimeDto?.approveOverTime?.descriptionSl :
+                      model?.employeeOverTimeDto?.approveOverTime?.descriptionFl
+                     }}
+                    <p>
+                      {{ model?.requestMainData?.createdDate | localizedDate: true }}
+                    </p>
+                  </ion-label>
+                  <ion-text *ngIf="model?.requestApproverHistoryList">
+                    <h4  class="status"[ngClass]="(model?.requestApproverHistoryList[0].workflowStatusNameFl+'' | splitwhitespaces)  + 'Request'" >
+                      <ion-icon [name]="model?.requestApproverHistoryList[0].workflowStatusId == workflowStatus.Approve ? 
+                          'checkmark-done-outline' : 
+                          model?.requestApproverHistoryList[0].workflowStatusId == workflowStatus.Reject? 
+                          'close-outline' : 'hourglass-outline'"
+                          [ngClass]="(model?.requestApproverHistoryList[0].workflowStatusNameFl+'' | splitwhitespaces) + 'Request'">
+                      </ion-icon>
+                        {{ base.isEnglish() ? model.requestApproverHistoryList[0].workflowStatusNameFl
+                        : model.requestApproverHistoryList[0].workflowStatusNameSl }}
+                    </h4>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>       
+          <ion-segment (ionChange)="segmentChanged($event.target)" value="1">
+            <ion-segment-button value="1">
+              <ion-label>{{ 'Data.Summary' | translate }}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2">
+              <ion-label>{{ 'Data.Details' | translate }}</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+          <div class="card-items" *ngIf="segmentValue == true">
+            <ng-container>
+              <div class="mt-15">
+
+                <div class="text-center summary">
+                  <ion-label>
+                    {{'Data.Submittedby'| translate}}: {{base.isEnglish() ? model
+                    ?.employeeOverTimeDto?.approveOverTime?.employeeNameFl : model
+                    ?.employeeOverTimeDto?.approveOverTime?.employeeNameSl}}
+                  </ion-label>
+                  <ion-label color="favorite">
+                    {{'Data.description'| translate}} {{ base.isEnglish() ?
+                    model?.employeeOverTimeDto?.approveOverTime?.descriptionFl :
+                    model?.employeeOverTimeDto?.approveOverTime?.descriptionSl !== null ?
+                    model?.employeeOverTimeDto?.approveOverTime?.descriptionSl :
+                    model?.employeeOverTimeDto?.approveOverTime?.descriptionFl
+                   }}
+                  </ion-label>
+                </div>
+                <div class="text-center summary">
+                  <ion-label>
+                    {{'Data.Month'| translate}} {{model ?.employeeOverTimeDto?.approveOverTime?.month}}
+                    <ion-icon name="arrow-forward"></ion-icon>
+                    {{'Data.Year'| translate}} {{model ?.employeeOverTimeDto?.approveOverTime?.year}}
+                  </ion-label>
+                </div>
+                <ion-row class="text-center mt-2" *ngIf="model?.requestApproverHistoryList">
+                  <ion-col class="ion-no-padding">
+                    <ion-item *ngIf="!model?.requestMainData?.isHistory">
+                      <ion-label position="floating" color="medium">
+                        {{ 'Data.Note' | translate}}:
+                      </ion-label>
+                      <ion-input type="text" [(ngModel)]="approveDto.comment" name="comment">
+                      </ion-input>
+                    </ion-item>
+                    <ion-item lines="none" class="text-center item-btn" *ngIf="!model?.requestMainData?.isHistory">
+                      <ion-button (click)="approve(true)" expand="block" color="success">
+                        <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+                        {{ 'Data.Approve' | translate}}
+                      </ion-button>
+                      <ion-button (click)="approve(false)" expand="block" color="danger">
+                        <ion-icon name="close-outline" slot="start"></ion-icon>
+                        {{ 'Data.Decline' | translate}}
+                      </ion-button>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <app-request-approve-history [item]="model"></app-request-approve-history>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="segmentValue == false" class="mt-2">
+            <ion-grid>
+              <ion-card *ngFor="let item of model?.employeeOverTimeDto?.approveOverTimeDetails;">
+                <ion-item lines="none">
+                  <ion-avatar slot="start">
+                    <img src="/assets/images/user.jpg">
+                  </ion-avatar>
+                  <div style="padding-top: 5%;">
+                    <div class="page-title"> 
+                      {{item.employeeNumber}} - {{base.isEnglish() ? item.employeeNameFl : item.employeeNameSl}}
+                    </div>
+                    <div class="page-sub-title">
+                      {{base.isEnglish() ? item.administrationFl : item.administrationSl}}
+                    </div>
+                    <div class="page-sub-title2"> 
+                      <span class="black">
+                        {{'Data.TotalOvertime' | translate}}:
+                      </span>
+                      {{item.actualMorningTime + item.actualNightTime + item.actualWeekEndTime + item.actualHolidayTime}} 
+                      {{'Data.Minutes' | translate}}
+                    </div>
+                  </div>
+                  <ion-icon *ngIf="!item.expanded" name="chevron-down-circle" (click)="expandItem(item)" slot="end"></ion-icon>
+                  <ion-icon *ngIf="item.expanded" name="chevron-up-circle" (click)="expandItem(item)" slot="end"></ion-icon>
+                </ion-item>
+                <ion-card-content>
+                  <app-expandable expandHeight="250px" [expanded]="item.expanded">
+                    <ion-grid>
+                      <ion-item class="box">
+                        <ion-row>
+                          <ion-col class="exptitle">{{'Data.Morning' | translate}}: {{item.actualMorningTime}} </ion-col>
+                        </ion-row>
+                      </ion-item>
+                      <ion-item class="box">
+                        <ion-row>
+                          <ion-col class="exptitle">{{'Data.Night' | translate}}: {{item.actualNightTime}} </ion-col>
+                        </ion-row>
+                      </ion-item>
+                      <ion-item class="box">
+                        <ion-row>
+                          <ion-col class="exptitle">{{'Data.Weekend' | translate}}: {{item.actualWeekEndTime}} </ion-col>
+                        </ion-row>
+                      </ion-item>
+                      <ion-item class="box">
+                        <ion-row>
+                          <ion-col class="exptitle">{{'Data.HolidayLeave' | translate}}: {{item.actualHolidayTime}}
+                          </ion-col>
+                        </ion-row>
+                      </ion-item>
+                    </ion-grid>
+                  </app-expandable>
+                </ion-card-content>
+              </ion-card>
+            </ion-grid>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

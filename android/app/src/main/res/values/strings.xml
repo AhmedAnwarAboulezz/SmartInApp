@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SmartInLite</string>
+    <string name="title_activity_main">SmartInLite</string>
+    <string name="package_name">apex.inquiry.com</string>
+    <string name="custom_url_scheme">apex.inquiry.com</string>
+</resources>

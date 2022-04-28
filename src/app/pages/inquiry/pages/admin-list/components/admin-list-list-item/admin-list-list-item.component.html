@@ -1,0 +1,34 @@
+<div
+  [class]="'attendance-item-wrap ' + item?.status"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <p class="m-0">{{ item?.balance }} - {{ item?.employeeName }}</p>
+
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="d-flex m-0">
+        <ion-icon class="icon" [name]="item?.department.icon"></ion-icon>
+        <span class="name">{{ item?.department.name }}</span>
+      </p>
+      <span class="time">
+        <span class="text-dimmed title">In</span>
+        <span [class]="'time ' + item?.status">{{ item?.to }}</span>
+      </span>
+      <span [class]="'status ' + item?.status">{{ item?.status }}</span>
+    </div>
+  </div>
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <hr />
+    <div class="permission-date from">
+      <p class="title m-0">Log shot</p>
+      <p>
+        <img src="assets/images/avatar2.jpg" alt="shot image" />
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<!-- <ion-card-header>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card-title class="ion-text-start">
+        {{ localize.isEnglish() ? request?.leaveNameFl :
+        request?.leaveNameSl }}
+      </ion-card-title>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="8">
+      <ion-card-subtitle>
+        {{ localize.isEnglish() ? request?.leaveTypeFl :
+        request?.leaveTypeSl }}
+      </ion-card-subtitle>
+    </ion-col>
+    <ion-col size="4">
+      <div class="numberCircle"
+        [ngClass]="{'marginRight':!localize.isEnglish(), 'marginLeft':localize.isEnglish()}">
+        <span>{{calculateDiff(request?.startDate,
+          request?.endDate)}}</span>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-card-subtitle class="ion-text-start">
+    <ion-icon name="calendar-outline"></ion-icon>
+    {{ request?.startDate | localizedDate}} - {{ request?.endDate | localizedDate}}
+    &nbsp;&nbsp;&nbsp;
+    <ion-label style="color: red;font-weight: 600">
+      {{ request.actualReturnDate !== null ? ('Data.LateReturn' | translate) : ('Data.EarlyReturn' | translate) }}
+    </ion-label>
+  </ion-card-subtitle>
+</ion-card-header> -->
+
+
+<div class="attendance-item-wrap Upcoming" [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="addRequest(request)" class="mini-content">
+    <div class="header d-flex">
+      <h5 class="title m-0">
+        {{ localize.isEnglish() ? request?.leaveNameFl : request?.leaveNameSl }}
+      </h5>
+      <span class="status Upcoming">
+        {{ request.actualReturnDate !== null ? ('Data.LateReturn' | translate) : ('Data.EarlyReturn' | translate) }}
+      </span>
+      <div class="expand-icons">
+        <!-- <ion-icon name="chevron-forward-outline"></ion-icon> -->
+        <ion-icon name="add-circle-outline"></ion-icon>
+
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">
+        {{ 'Data.Type' | translate }} : {{ localize.isEnglish() ? request?.leaveTypeFl : request?.leaveTypeSl }}
+      </p>
+      <p class="m-0">
+        {{ 'Data.ActualDays' | translate }} : {{calculateDiff(request?.startDate,request?.endDate)}} {{ 'Data.dayss' | translate }} 
+      </p>
+    </div>
+    <!-- <div class="numberCircle"
+      [ngClass]="{'marginRight':!localize.isEnglish(), 'marginLeft':localize.isEnglish()}">
+      <span>{{calculateDiff(request?.startDate,request?.endDate)}}</span>
+    </div> -->
+    <!-- <hr /> -->
+    <div class="permission-date d-flex">
+      <div class="title from">
+        <p>{{ 'Data.From' | translate }}</p>
+        <p> 
+          {{ request?.startDate | localizedDate}}
+        </p>
+      </div>
+      <div class="title to">
+        <p>{{ 'Data.To' | translate }}</p>
+        <p>
+          {{ request?.endDate | localizedDate}}
+        </p>
+      </div>
+      <!-- <div class="title total">
+        <p>{{ 'Data.Days' | translate }}</p>
+        <p>{{calculateDiff(item?.employeeLeaveReturnDto?.startDate, item?.employeeLeaveReturnDto?.endDate)}}</p>
+      </div> -->
+    </div>
+  </div>
+</div>

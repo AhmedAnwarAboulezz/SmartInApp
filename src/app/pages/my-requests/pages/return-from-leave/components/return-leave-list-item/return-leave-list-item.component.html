@@ -1,0 +1,174 @@
+<!-- <div
+  [class]="'attendance-item-wrap ' + item?.status"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div class="mini-content">
+    <div class="header d-flex">
+      <h5 class="title m-0">{{ item?.title }}</h5>
+      <span *ngIf="item?.status" [class]="'status ' + item?.status">{{
+        item?.status
+      }}</span>
+    </div>
+
+    <div class="permission-date d-flex">
+      <div class="title from">
+        <p>From</p>
+        <p>{{ item?.from }}</p>
+      </div>
+      <div class="title to">
+        <p>To</p>
+        <p>{{ item?.to }}</p>
+      </div>
+      <div class="title late">
+        <p>Late Return</p>
+        <p class="text-danger">{{ item?.balanceAfter }}</p>
+      </div>
+    </div>
+
+    <ng-container *ngIf="item?.status">
+      <div class="title to">
+        <p>Return date</p>
+        <p>{{ item?.date }}</p>
+      </div>
+
+      <div class="details">
+        {{ item?.details }}
+      </div>
+    </ng-container>
+
+    <div *ngIf="!item?.status" class="cancel mt-15">
+      <ion-button color="danger" fill="outline" expand="block">
+        Return from leave
+      </ion-button>
+    </div>
+    <div *ngIf="item.status === 'Pending'" class="cancel mt-15">
+      <ion-button size="small" color="danger" fill="outline">
+        cancel
+      </ion-button>
+    </div>
+  </div>
+</div> -->
+
+
+<div
+  [class]="'attendance-item-wrap ' + item?.requestMainData?.finalStatus"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <h5 class="title m-0">
+        {{ item?.title }}
+        {{
+          localize.isEnglish()
+            ? item?.employeeLeaveReturnDto?.leaveNameFl
+            : item?.employeeLeaveReturnDto?.leaveNameSl
+        }}
+      </h5>
+      <span [class]="'status ' + item?.requestMainData?.finalStatus">
+        {{
+          localize.isEnglish()
+            ? item?.requestMainData?.workflowStatus?.nameFl
+            : item?.requestMainData?.workflowStatus?.nameSl
+        }}
+      </span>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">
+        {{ 'Data.ReturnDate' | translate}} : {{ item?.employeeLeaveReturnDto?.returnDate | localizedDate }}
+      </p>
+      <ion-label style="color: red;font-weight: 600">
+        {{ item?.actualReturnDate !== null ? ('Data.LateReturn' | translate) : ('Data.EarlyReturn' | translate) }}
+      </ion-label>
+    </div>
+    <hr />
+    <div class="permission-date d-flex">
+      <div class="title from">
+        <p>{{ 'Data.From' | translate }}</p>
+        <p> 
+          {{ item?.employeeLeaveReturnDto?.startDate | localizedDate }}
+        </p>
+      </div>
+      <div class="title to">
+        <p>{{ 'Data.To' | translate }}</p>
+        <p>{{ item?.employeeLeaveReturnDto?.endDate | localizedDate }}</p>
+      </div>
+      <div class="title total">
+        <p>{{ 'Data.Days' | translate }}</p>
+        <p>
+          {{item?.employeeLeaveReturnDto.actualDays}}
+        </p>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <!-- <div class="permission-date d-flex text-center">
+      <div class="title total">
+        <p>{{ 'Data.balanceBefore' | translate }}</p>
+        <p>{{ item?.employeeLeaveReturnDto?.balance }}</p>
+      </div>
+      <div class="title from">
+        <p>{{ 'Data.balanceAfter' | translate }}</p>
+        <p>{{ item?.employeeLeaveReturnDto?.leftBalance }}</p>
+      </div>
+    </div> -->
+    <div class="details">
+      {{ item?.employeeLeaveReturnDto?.reason }}
+    </div>
+
+    <div *ngIf="item.requestMainData?.workflowStatus?.id === workflowStatus.New" class="action-btns d-flex mt-15 mb-15">
+      <div class="cancel">
+        <ion-button size="small" color="danger" fill="outline" (click)="showModal()">
+          {{'Data.Cancel' | translate}}
+        </ion-button>
+      </div>
+        <!-- <div class="take-action d-flex">
+        <div class="approve">
+          <ion-button size="small" color="success"> approve </ion-button>
+        </div>
+        <div class="reject">
+          <ion-button size="small" color="danger"> reject </ion-button>
+        </div>
+      </div> -->
+    </div>
+    <app-request-approve-history [item]="item"></app-request-approve-history>
+  </div>
+</div>
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.confirmation' | translate}}</h2>
+    <div class="form">
+      <div class="action-btns d-flex">
+
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+           {{'Data.Cancel' | translate}}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="
+              modal.toggleShow();
+              removeRequest($event, item.requestMainData?.id)
+              "
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+           {{'Data.confirm' | translate}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

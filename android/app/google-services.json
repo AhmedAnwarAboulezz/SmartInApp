@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "419184295443",
+    "project_id": "apex-push-e9457",
+    "storage_bucket": "apex-push-e9457.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419184295443:android:f6859c119c133b6765c9e6",
+        "android_client_info": {
+          "package_name": "apex.inquiry.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419184295443-331aj00cgl40vfe9mo8rvp57foockomr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyU-GHV5rQB0-VQDjQeVv31dHtyJC7GR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419184295443-331aj00cgl40vfe9mo8rvp57foockomr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

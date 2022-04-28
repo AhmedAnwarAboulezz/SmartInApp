@@ -1,0 +1,126 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="localize.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/myRequests/main-my-requests"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'Data.RequestFullDayPermission' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-segment
+    color="danger"
+    (ionChange)="segmentChanged($event)"
+    [value]="filter.statusTypeId"
+  >
+    <ion-segment-button value="1">
+      <ion-label>{{ 'Data.Pending' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>{{ 'Data.Approval' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <ion-label>{{ 'Data.Rejected' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="4">
+      <ion-label>{{ 'Data.Deleted' | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div class="filter-wrap d-flex mt-15">
+    <div class="date">{{ filter.date | localizedMonthYear }}</div>
+    <div class="filter-icon">
+      <div class="icons">
+        <div (click)="showModal()" class="icon filter-icon">
+          <ion-icon name="funnel-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-grid *ngIf="isLoading">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid
+    *ngIf="!isLoading && (!pendingRequests || pendingRequests.length <= 0)"
+  >
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <p>{{ 'Data.noDataMsg' | translate }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="card-items" *ngIf="!isLoading && pendingRequests.length > 0">
+    <ng-container *ngFor="let request of pendingRequests">
+      <div class="mt-15">
+        <app-full-day-list-item
+          (action)="action($event)"
+          [item]="request"
+        ></app-full-day-list-item>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="footer-btn">
+    <ion-button routerLink="../add" expand="full" size="large" color="danger">
+      {{ 'Data.RequestFullDayPermission' | translate }}
+    </ion-button>
+  </div>
+</ion-footer>
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.filter' | translate}}</h2>
+    <div class="form">
+      <div class="form-input filter">
+        <ion-label position="stacked">{{ 'Data.MonthYear' | translate }}</ion-label>
+        <ion-item>
+          <ion-datetime
+            placeholder="{{ 'Data.MonthYear' | translate }}"
+            displayFormat="MMMM YYYY"
+            [(ngModel)]="filter.date"
+            cancelText="{{ 'Data.Cancel' | translate }}"
+            doneText="{{ 'Data.Ok' | translate }}"
+            [max]="maxData"
+            [monthNames]="'Data.Months' | translate"
+          ></ion-datetime>
+          <ion-icon
+            name="calendar-clear-outline"
+            size="small"
+            slot="start"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="action-btns d-flex">
+
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+            {{ 'Data.Clear' | translate }}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="modal.toggleShow(); fetchData()"
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+            {{ 'Data.Apply' | translate }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

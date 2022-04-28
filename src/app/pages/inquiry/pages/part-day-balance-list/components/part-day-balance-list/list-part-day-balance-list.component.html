@@ -1,0 +1,44 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="localize.isEnglish() ? 'start' : 'end'">
+      <ion-back-button defaultHref="/home/inquiry"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Card.PartDayPermissionBalance' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <app-header-sort-area 
+  [currentCount]="currentCount" [totalCount]="totalCount" [dayDate]="filter.monthYear" [useSort]="false" [type]="3"
+   (filter)="openModal()" >
+  </app-header-sort-area>
+  <!-- <div class="filter-wrap d-flex">
+    <div class="date">
+      <h1 class="m-0">{{ 'Data.Count' | translate }} : {{ currentCount}} / {{ totalCount }}</h1>
+    </div>
+    <div class="filter-icon">
+      <div class="icons m-0">
+        <div (click)="openModal()" class="icon filter-icon">
+          <ion-icon name="funnel-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="card-items">
+    <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ng-container *ngFor="let item of list">
+      <div class="mt-15">
+        <app-part-day-balance-list-list-item
+          [item]="item"
+        ></app-part-day-balance-list-list-item>
+      </div>
+    </ng-container>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'Data.loading' | translate">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

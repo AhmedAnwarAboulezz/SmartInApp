@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+  <ion-router-outlet></ion-router-outlet>
+  <ion-tabs>
+    <ion-tab-bar id="main-tabs" slot="bottom" >
+      <ion-tab-button [ngClass]="tabIndex == p.url ? 'isSelected': ''" *ngFor="let p of pages" (click)="openPendingTab(p.url)">
+        <ion-icon name="{{p.icon}}"></ion-icon>
+        <ion-label>{{'SIDEBAR.' + p.title | translate}}</ion-label>
+      </ion-tab-button>
+      <!-- <ion-tab-button tab="attendance">
+        <ion-icon name="stopwatch-outline"></ion-icon>
+        <ion-label>{{ 'Data.Attendance' |  translate }}</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="inquiry">
+        <ion-icon name="albums-outline"></ion-icon>
+        <ion-label>{{ 'Data.Inquiry' |  translate }}</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="myRequests">
+        <ion-icon name="calendar-number-outline"></ion-icon>
+        <ion-label>{{ 'Data.MyRequests' |  translate }}</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="departments">
+        <ion-icon name="file-tray-full-outline"></ion-icon>
+        <ion-label>{{ 'Data.AdmInquiry' |  translate }}</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="requests">
+        <ion-icon name="document-outline"></ion-icon>
+        <ion-label>{{ 'Data.Requests' |  translate }}</ion-label>
+      </ion-tab-button> -->
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
+
+

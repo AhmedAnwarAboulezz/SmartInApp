@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true">
+  <div class="center-content">
+    <app-main-header></app-main-header>
+    <div class="my-requests-wrap" [ngClass]="{'lang-ar': !localize.isEnglish()}">
+      <div class="card-header">
+        <div class="title">
+          <h1>{{'Data.MyRequests' | translate}}</h1>
+        </div>
+      </div>
+      <div class="card-items">
+        <ion-grid>
+          <ion-row>
+            <ng-container *ngFor="let item of requestsTypes">
+              <ion-col size="6" *ngIf="item.show">
+                <div (click)="navigate(item)" class="item-wrap">
+
+                  <div class="icon-wrap">
+                    <div
+                      class="notification-icon"
+                      [ngClass]="{active: item.notificationCount > 0}"
+                    >
+                      <!-- <div class="active-dot"></div> -->
+                      <ion-badge *ngIf="item.notificationCount > 0" class="notifi-badge" color="danger">{{item.notificationCount}}</ion-badge>
+
+                      <ion-icon
+                        class="notification"
+                        name="notifications-outline"
+                      ></ion-icon>
+                    </div>
+                  </div>
+                  <div class="item-icon">
+                    <img [src]="item.icon" [alt]="item.title" />
+                  </div>
+                  <div class="title">{{item.title | translate}}</div>
+                </div>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </div>
+</ion-content>

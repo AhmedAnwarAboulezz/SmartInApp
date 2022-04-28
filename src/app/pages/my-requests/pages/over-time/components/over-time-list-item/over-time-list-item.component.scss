@@ -1,0 +1,221 @@
+.attendance-item-wrap {
+  box-shadow: 0 4px 8px 0 rgb(194 213 237 / 30%), 0 6px 20px 0 rgb(194 213 237 / 30%);
+  &.Approval {
+    border-left: 2px solid #62cd68;
+  }
+  &.Rejected {
+    border-left: 2px solid #e84855;
+  }
+  &.Pending {
+    border-left: 2px solid #419aeb;
+  }
+  &.Removed {
+    border-left: 2px solid #e7c502;
+  }
+
+  .mini-content {
+    position: relative;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(194, 213, 237, 0.3),
+    0 6px 20px 0 rgba(194, 213, 237, 0.3);
+
+    .header {
+      margin-bottom: 10px;
+      .status {
+        margin-right: auto;
+        margin-left: 10px;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        &.Approval {
+          color: #62cd68;
+          background-color: #62cd6830;
+        }
+        &.Rejected {
+          color: #e84855;
+          background-color: #e8485517;
+        }
+        &.Pending {
+          color: #419aeb;
+          background-color: #fea50026;
+        }
+        &.Removed {
+          color: #ffffff;
+          background-color: #e7c502;
+        }
+        
+      }
+    }
+
+    .content {
+      span {
+        margin-right: 15px;
+      }
+    }
+
+    .permission-date {
+      .title {
+        color: #8594a7;
+        p.date {
+          color: #147ad6;
+        }
+      }
+    }
+
+    .expand-icons {
+      transition: all 0.2s ease-in-out;
+
+      &.expanded {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .expanded-content {
+    overflow: hidden;
+    padding: 0;
+    height: 0;
+    transition: all 0.2s ease-in-out;
+
+    &.expanded {
+      height: auto;
+      padding: 15px;
+    }
+
+    hr {
+      background-color: #abbbcf45;
+      margin: 15px 0;
+      height: 2px;
+    }
+
+    .details {
+      background-color: #e7eef88c;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .leader {
+      align-items: flex-end;
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        overflow: hidden;
+      }
+
+      .text {
+        margin-right: auto;
+        margin-left: 15px;
+        .date {
+          color: #97aac2;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .creation-date {
+      color: #434343;
+      text-align: center;
+      font-size: 0.75rem;
+      margin-top: 15px;
+    }
+
+    .icon-wrap {
+      .notification-icon {
+        padding: 10px;
+        line-height: 10px;
+        border-radius: 50%;
+        background-color: #e7eef8;
+        display: inline-block;
+
+        ion-icon {
+          color: #abbbcf;
+        }
+
+        &.active {
+          position: relative;
+          background-color: rgba(#e84855, 0.15);
+
+          ion-icon {
+            color: #e84855;
+          }
+
+          .active-dot {
+            position: absolute;
+            right: 20%;
+            top: 25%;
+            background-color: #e84855;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.info-wrap {
+  justify-content: flex-start;
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+  .sub-title {
+    color: #147ad6;
+  }
+
+  .info {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.permission-date {
+  .title {
+    color: #8594a7;
+  }
+}
+
+.attendance-item-wrap.lang-ar {
+  .mini-content {
+    .content {
+      span {
+        margin-right: auto;
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+.attendance-item-wrap.lang-ar {
+  .mini-content {  
+    .expand-icons {    
+      &.expanded {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}
+
+.attendance-item-wrap.lang-ar {
+  &.Approval {
+    border-right: 2px solid #62cd68;
+    border-left:none;
+  }
+  &.Rejected {
+    border-right: 2px solid #e84855;
+    border-left:none;
+  }
+  &.Pending {
+    border-right: 2px solid #419aeb;
+    border-left:none;
+  }
+  &.Removed {
+    border-right: 2px solid #e7c502;
+    border-left:none;
+  }
+}

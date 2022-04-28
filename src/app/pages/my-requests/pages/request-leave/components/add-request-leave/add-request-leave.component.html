@@ -1,0 +1,195 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="base.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/myRequests/request-leave/list"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.RequestLeave' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <!-- <ion-radio-group>
+      <ion-label>Type</ion-label>
+      <div class="form-radio">
+        <div class="radio-item">
+          <ion-radio
+            class="radio radio-inline"
+            slot="start"
+            value="sick"
+          ></ion-radio>
+          <ion-label>Sick</ion-label>
+        </div>
+        <div class="radio-item">
+          <ion-radio
+            class="radio radio-inline"
+            slot="start"
+            value="annual"
+          ></ion-radio>
+          <ion-label>Annual</ion-label>
+        </div>
+        <div class="radio-item">
+          <ion-radio
+            class="radio radio-inline"
+            slot="start"
+            value="emergency"
+          ></ion-radio>
+          <ion-label>Emergency</ion-label>
+        </div>
+      </div>
+    </ion-radio-group> -->
+
+    <div class="form-input">
+      <ion-label position="stacked">{{ 'Data.LeaveType' | translate}}</ion-label>
+      <ion-item>
+        <ion-select   name="leaveRegulationId" [okText]="'Data.Ok' | translate" [cancelText]="'Data.Cancel' | translate"
+          [(ngModel)]="model?.employeeLeaveDto.leaveRegulationId" placeholder="{{ 'message.SelectLeaveType' | translate}}"
+          (ionChange)="getLeaveAvailableBalance()" required>
+          <ion-select-option *ngFor="let type of leaveTypes" [value]="type.id">
+            {{ base.isEnglish() ? type?.nameFl : type?.nameSl }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-input mt-15">
+      <ion-label position="stacked">{{'Data.StartDate' | translate}}</ion-label>
+      <ion-item>
+        <ion-datetime 
+          name="startDate" #startPicker 
+          displayFormat="DD MMMM YYYY"
+          [doneText]="'Data.Ok' | translate"   
+          [cancelText]="'Data.Cancel' | translate"
+          [(ngModel)]="model?.employeeLeaveDto.startDate"
+            (ionChange)="getLeaveAvailableBalance()"
+          placeholder="{{'Data.StartDate' | translate}}" 
+          [max]="maxData"
+          [monthNames]="'Data.Months' | translate">
+        </ion-datetime>
+        <ion-icon
+          name="calendar-clear-outline"
+          size="small"
+          slot="start"
+          (click)="startPicker.open()"
+        ></ion-icon>
+      </ion-item>
+    </div>
+
+    <div class="form-input">
+      <ion-label position="stacked">{{'Data.EndDate' | translate}}</ion-label>
+      <ion-item>
+        <ion-datetime 
+          name="endDate" #endPicker 
+          displayFormat="DD MMMM YYYY"
+          [doneText]="'Data.Ok' | translate"   
+          [cancelText]="'Data.Cancel' | translate"
+          [(ngModel)]="model?.employeeLeaveDto.endDate"
+            (ionChange)="getLeaveAvailableBalance()"
+          placeholder="{{'Data.EndDate' | translate}}" 
+          [max]="maxData"
+          [monthNames]="'Data.Months' | translate">
+        </ion-datetime>
+        <ion-icon
+          name="calendar-clear-outline"
+          size="small"
+          slot="start"
+          (click)="endPicker.open()"
+        ></ion-icon>
+      </ion-item>
+    </div>
+
+    <div class="form-input" *ngIf="showUnpaidCheckBox">
+      <ion-label position="stacked">{{ 'Data.UnPaidLeave' | translate}}</ion-label>
+      <ion-item>
+        <ion-col  size="2">
+          <ion-checkbox [(ngModel)]="model?.employeeLeaveDto.isUnpaidLeave" name="isUnpaidLeave"
+            class="form-controll input-control" (ionChange)="onchangeUnpaidLeave($event)">
+          </ion-checkbox> 
+        </ion-col>
+        <ion-col size="10">
+          <ion-row *ngIf="showUnPaid" class="summary">
+            <ion-col size="6">
+              <div class="title">{{ 'Data.UnPaidStartDate' | translate}}</div>
+              <div class="details">{{model?.employeeLeaveDto.unPayedStartDate | localizedDate}}</div>
+            </ion-col>  
+            <ion-col size="6">
+              <div class="title">{{ 'Data.UnPaidDays' | translate}}</div>
+              <div class="details">{{model?.employeeLeaveDto.unPayedDay}}</div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-item>
+    </div>
+
+
+  </ion-grid>
+
+
+
+  <div class="upload-wrap">
+    <div class="title">{{'Data.UploadFile' | translate}}</div>
+    <div class="upload" (click)="file.click()">
+      <ion-icon name="cloud-upload" item-right></ion-icon>
+      <div class="hint">{{model.employeeLeaveDto.filePath}}</div>
+    </div>
+    <input class="fileInput" style="display: none;" #file type="file" 
+    (change)="loadImageFromDevice($event)" id="file-input"
+    accept="image/*, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document;capture=camera"
+   />
+    <div class="hint">{{'Data.UploadHint' | translate}}</div>
+  </div>
+
+
+  <div class="form-input mt-15">
+    <ion-label position="stacked">{{ 'Data.Comment' | translate}}</ion-label>
+    <ion-item>
+      <ion-textarea placeholder="Reasons" rows="6" cols="20" [(ngModel)]="model?.employeeLeaveDto.comment" name="comment"></ion-textarea>
+    </ion-item>
+  </div>
+  <div class="summary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div class="title">{{ 'Data.NoOfDays' | translate}}</div>
+          <div class="details">{{model?.employeeLeaveDto.dayNumber}}</div>
+        </ion-col>
+
+        <ion-col size="6">
+          <div class="title">{{ 'Data.ActualDays' | translate}}</div>
+          <div class="details">{{model?.employeeLeaveDto.actualDay}}</div>
+        </ion-col>
+
+        <ion-col size="6">
+          <div class="title">{{ 'Data.PaidDays' | translate}}</div>
+          <div class="details">{{model?.employeeLeaveDto.payedDay}}</div>
+        </ion-col>
+
+        <ion-col size="6">
+          <div class="title">{{ 'Data.AvailableBalance' | translate}}</div>
+          <div class="details">{{base.getcasted(model?.employeeLeaveDto.balance)}}</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="title">{{ 'Data.RemainingBalance' | translate}}</div>
+          <div class="details">{{ base.getcasted(model?.employeeLeaveDto.leftBalance)}}</div>
+        </ion-col>
+       
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="footer-btn">
+    <ion-button expand="full" size="large" color="primary"
+      type="submit"
+      [disabled]="model.employeeLeaveDto.leftBalance == null 
+      || model?.employeeLeaveDto.leftBalance < 0 ||  model?.employeeLeaveDto.actualDay == 0 || disableSave == true"
+      (click)="add()"
+      >{{ 'Data.Add' | translate }}</ion-button
+    >
+  </div>
+</ion-footer>
+
+
+

@@ -1,0 +1,111 @@
+
+// .select-item {
+//     width: 100%;
+//     justify-content: center !important;
+//     text-align: center;
+// }
+
+// ion-select {
+//     border: 1px solid #1769aa !important;
+//     border-radius: 15px;
+//     width: 100% !important;
+//     max-width: 100% !important;
+//     justify-content: center;
+// }
+
+
+// .calendar-button {
+//     background-color: #fff;
+// }
+
+// .calender-item {
+//     border-radius: 15px;
+//     border: 1px solid #1769aa;
+// }
+// .calendar-icon {
+//     color: #1769aa;
+// }
+
+// .label {
+//     font-size: 15px;
+   
+// }
+
+// .input-item {
+//     border: 1px solid #1769aa !important;
+//     border-radius: 15px;
+//     height: auto;
+//   //  box-shadow: 1px 1px 1px #8888;
+// }
+
+// .add {
+//     width: 40%;
+//     margin: 10px auto 0;
+// }
+
+// .input-control {
+//     font-size: 15px;
+// }
+
+// .fileInput {
+//     width: 0.1px;
+//     height: 0.1px;
+//     opacity: 0;
+//     overflow: hidden;
+//     position: absolute;
+//     z-index: -1;
+// }
+
+
+// ::ng-deep .label-floating.sc-ion-label-md-h {
+//     align-self: auto;
+//     width: auto;
+//     max-width: none;
+// }
+
+// .numberCircle{
+//     color: red;
+//     font-size: 17px;
+//     font-weight: 600;
+// }
+
+
+
+.main-header {
+    --background: #f6f9fd;
+    --color: #231f20;
+  }
+  
+  .filter-wrap {
+    .date {
+      color: #abbbcf;
+    }
+  }
+  
+  .icon {
+    color: #e84855;
+    background-color: #fce5e7;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #e84855;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    ion-icon {
+      zoom: 1.5;
+    }
+  }
+  .footer-btn {
+    background-color: #ffffff;
+    padding: 15px;
+  }
+  
+  .summary {
+    margin-top: 30px;
+    .title {
+      color: #8594a7;
+      margin-bottom: 10px;
+    }
+  }
+  

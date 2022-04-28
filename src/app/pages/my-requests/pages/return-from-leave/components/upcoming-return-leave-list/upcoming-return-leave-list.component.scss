@@ -1,0 +1,119 @@
+.attendance-item-wrap {
+    &.Upcoming {
+      border-left: 2px solid #c1c5cc8c;
+    }
+    //box-shadow: -6px 8px 8px 0 rgb(178 181 183), 0px -1px 6px 0px rgb(232 212 215);
+    .mini-content {
+      position: relative;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(194, 213, 237, 0.3),
+      0 6px 20px 0 rgba(194, 213, 237, 0.3);
+  
+  
+      .header {
+        margin-bottom: 10px;
+        .status {
+          margin-right: auto;
+          margin-left: 10px;
+          padding: 5px 10px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          &.Upcoming {
+            color: #ffffff;
+            background-color: #e61414;
+          }
+        }
+      }
+  
+      hr {
+        background-color: #abbbcf45;
+        margin: 15px 0;
+        height: 2px;
+      }
+  
+      .permission-date {
+        .title {
+          color: #8594a7;
+          p.date {
+            color: #147ad6;
+          }
+        }
+      }
+  
+      .expand-icons {
+        transition: all 0.2s ease-in-out;
+  
+        &.expanded {
+          transform: rotate(90deg);
+        }
+      }
+    }
+  
+    .expanded-content {
+      overflow: hidden;
+      padding: 0;
+      height: 0;
+      transition: all 0.2s ease-in-out;
+  
+      &.expanded {
+        height: auto;
+        padding: 15px;
+      }
+  
+      .details {
+        background-color: #e7eef88c;
+        padding: 15px;
+        border-radius: 5px;
+      }
+    }
+    .text-center {
+      text-align: center;
+    }
+  }
+  
+  
+  
+  .attendance-item-wrap.lang-ar {
+    .mini-content {  
+      .expand-icons {    
+        &.expanded {
+          transform: rotate(-90deg);
+        }
+      }
+    }
+  }
+  
+  .attendance-item-wrap.lang-ar {
+    &.Upcoming {
+      border-right: 2px solid #c1c5cc8c;
+      border-left:none;
+    }
+  }
+
+
+  .numberCircle {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    background: #fff;
+    border: 2px solid #666;
+    flex-grow: 0;
+    padding: 0;
+}
+
+.numberCircle span {
+    color: #666;
+    text-align: center;
+    font: 12px Arial, sans-serif;
+    width: 25px;
+    display: inline-block;
+    margin: auto;
+}
+.marginLeft {
+    margin-left: 63%;
+}
+.marginRight {
+    margin-right: 63%;
+}

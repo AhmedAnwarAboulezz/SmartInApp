@@ -1,0 +1,117 @@
+<ion-content [fullscreen]="true">
+  <div class="center-content">
+    <app-main-header></app-main-header>
+    <div class="attendance-wrap">
+      <div class="card-header">
+        <div class="title">
+          <h1>{{ 'Data.Attendance' |  translate }}</h1>
+        </div>
+        <div class="icons">
+          <!-- Replace By showModal() to implement the new popup filter -->
+          <div (click)="openModal()" class="icon filter-icon">            
+            <ion-icon name="funnel-sharp"></ion-icon>
+          </div>
+          <app-inquiry-sort [ascSortType]="ascSortType" (sortData)="sortData($event)"></app-inquiry-sort>
+          <!-- <div class="icon sort-icon">
+            <ion-icon name="filter-sharp"></ion-icon>
+          </div> -->
+        </div>
+      </div>
+      <div class="card-items">
+        <ng-container *ngFor="let item of list">
+          <div class="mt-15">
+            <app-attendance-list-item [item]="item"></app-attendance-list-item>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'Data.loading' | translate">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.filter' | translate}}</h2>
+    <div class="form">
+      <div class="form-input filter">
+        <ion-label position="stacked">From date</ion-label>
+        <ion-item>
+          <ion-datetime
+            placeholder="From Date"
+            displayFormat="DDDD DD MMMM YYYY"
+          ></ion-datetime>
+          <ion-icon
+            name="calendar-clear-outline"
+            size="small"
+            slot="start"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="form-input filter">
+        <ion-label position="stacked">To date</ion-label>
+        <ion-item>
+          <ion-datetime
+            placeholder="To Date"
+            displayFormat="DDDD DD MMMM YYYY"
+          ></ion-datetime>
+          <ion-icon
+            name="calendar-clear-outline"
+            size="small"
+            slot="start"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="form-input filter">
+        <ion-label position="stacked">Status</ion-label>
+        <ion-item>
+          <ion-select
+            placeholder="status"
+            value="status"
+            interface="action-sheet"
+          >
+            <ion-select-option value="present">Present</ion-select-option>
+            <ion-select-option value="absence">Absence</ion-select-option>
+            <ion-select-option value="restDay">restDay</ion-select-option>
+            <ion-select-option value="lateIn">lateIn</ion-select-option>
+            <ion-select-option value="earlyOut">earlyOut</ion-select-option>
+            <ion-select-option value="weekend">weekend</ion-select-option>
+          </ion-select>
+          <ion-icon
+            name="stats-chart-outline"
+            size="small"
+            slot="start"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="action-btns d-flex">
+
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+            {{ 'Data.Clear' | translate }}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+            {{ 'Data.Apply' | translate }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

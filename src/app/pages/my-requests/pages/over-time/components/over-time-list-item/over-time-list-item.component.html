@@ -1,0 +1,148 @@
+<div
+  [class]="'attendance-item-wrap ' + item?.requestMainData?.finalStatus"
+  [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+>
+  <div (click)="toggleExpand()" class="mini-content">
+    <div class="header d-flex">
+      <h5 class="title m-0">
+        {{  item?.employeeOverTimeDto?.approveOverTime?.descriptionFl == null ?
+            item?.employeeOverTimeDto?.approveOverTime?.descriptionSl : item?.employeeOverTimeDto?.approveOverTime?.descriptionFl }}
+      </h5>
+      <span [class]="'status ' + item?.requestMainData?.finalStatus">
+        {{ localize.isEnglish() ? item?.requestMainData?.workflowStatus?.nameFl : item?.requestMainData?.workflowStatus?.nameSl }}
+      </span>
+      <div class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="content d-flex">
+      <p class="m-0">
+        <span>{{ item?.employeeOverTimeDto?.approveOverTime?.month | monthName}} {{ item?.employeeOverTimeDto?.approveOverTime?.year }}</span>
+      </p>
+      <p class="date">
+        <span>{{ item?.employeeOverTimeDto?.approveOverTimeDetails?.length }} {{'Data.employees' | translate}}</span>
+
+      </p>
+    </div>
+  </div>
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <div class="details" *ngIf="item?.employeeOverTimeDto?.comment">
+      {{ item?.employeeOverTimeDto?.comment }}
+    </div>
+    <hr />
+    <div class="user-list">
+      <p>{{ 'Data.employeesList' | translate}}</p>
+      <div
+        *ngFor="let user of item?.employeeOverTimeDto?.approveOverTimeDetails"
+        class="user-item d-flex mt-15"
+        (click)="showEmployeeModal(user)"
+      >
+        <div class="info-wrap d-flex">
+          <div class="avatar">
+            <img src="assets/images/avatar.jpg" alt="avatar" />
+          </div>
+
+          <div class="info">
+            <div class="title">{{ user?.employeeNumber }} - {{ user?.employeeNameFl }}</div>
+            <div class="sub-title">{{'Data.TotalOvertime' | translate}} {{ getTotalOverTime(user) }}  {{'Data.Minutes' | translate}}</div>
+          </div>
+        </div>
+        <div class="icon-wrap">
+          <div class="notification-icon">
+            <ion-icon
+              class="notification"
+              name="information-circle-outline"
+            ></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="item?.requestMainData?.workflowStatus?.id === workflowStatus.New" class="action-btns d-flex mt-15 mb-15">
+      <div class="cancel">
+        <ion-button size="small" color="danger" fill="outline" (click)='showModal()'>
+          {{'Data.Cancel' | translate}}
+        </ion-button>
+      </div>
+    </div>
+    <app-request-approve-history [item]="item"></app-request-approve-history>
+</div>
+
+<ng-template #employeeContent>
+  <div class="filter-content">
+    <div class="info-wrap d-flex">
+      <div class="avatar">
+        <img src="assets/images/avatar.jpg" alt="avatar" />
+      </div>
+
+      <div class="info">
+        <div class="title">
+          {{ selected?.employeeNumber }} - {{ localize.isEnglish() ? selected?.employeeNameFl : selected?.employeeNameSl }}
+        </div>
+        <div class="sub-title">{{'Data.TotalOvertime' | translate}} {{ getTotalOverTime(selected) }}</div>
+      </div>
+    </div>
+    <hr />
+
+    <ion-grid>
+      <div class="permission-date">
+        <ion-row>
+          <ion-col size="6">
+            <p class="title m-0">{{'Data.Morning' | translate}}</p>
+            <p class="m-0">{{selected?.actualMorningTime}}</p>
+          </ion-col>
+
+          <ion-col size="6">
+            <p class="title m-0">{{'Data.Night' | translate}}</p>
+            <p class="m-0">{{selected?.actualNightTime}}</p>
+          </ion-col>
+
+          <ion-col size="6">
+            <p class="title m-0">{{'Data.Weekend' | translate}}</p>
+            <p class="m-0">{{selected?.actualWeekEndTime}}</p>
+          </ion-col>
+
+          <ion-col size="6">
+            <p class="title m-0">{{'Data.HolidayLeave' | translate}}</p>
+            <p class="m-0">{{selected?.actualHolidayTime}}</p>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </div>
+</ng-template>
+
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.confirmation' | translate}}</h2>
+    <div class="form">
+      <div class="action-btns d-flex">
+
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+           {{'Data.Cancel' | translate}}
+          </ion-button>
+        </div>
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="
+              modal.toggleShow();
+              removeRequest($event, item.requestMainData?.id)
+              "
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+           {{'Data.confirm' | translate}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

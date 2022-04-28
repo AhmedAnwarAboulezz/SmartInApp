@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="main-header">
+    <ion-buttons [slot]="base.isEnglish() ? 'start' : 'end'">
+      <ion-back-button
+        defaultHref="/home/myRequests/over-time/list"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Data.RequestOverTime' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="filter-wrap d-flex mt-15">
+    <div class="date">
+      {{model?.approveOverTimeWithDetailsDto.approveOverTime.month | monthName}} 
+                 {{model?.approveOverTimeWithDetailsDto.approveOverTime.year}}
+    </div>
+    <div class="filter-icon">
+      <div class="icons">
+        <div (click)="showFilterModal()" class="icon filter-icon">
+          <ion-icon name="funnel-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  *ngIf="employees.length > 0">
+    <div class="user-list" *ngFor="let item of employees; let i=index">
+      <app-add-over-time-list-item [item]="item" [index]="i" (removeAction)="remove($event)" (editAction)="edit($event)"></app-add-over-time-list-item>
+    </div>  
+    <div class="form-input mt-15">
+      <ion-label position="stacked">{{ 'Data.descriptionFl' | translate}}</ion-label>
+      <ion-item>
+        <ion-textarea  rows="6" cols="20"
+          *ngIf="base.isEnglish()" name="descriptionFl"
+          [(ngModel)]="model?.approveOverTimeWithDetailsDto.approveOverTime.descriptionFl"
+        ></ion-textarea>
+        <ion-textarea  rows="6" cols="20"
+          *ngIf="!base.isEnglish()" name="descriptionSl"
+          [(ngModel)]="model?.approveOverTimeWithDetailsDto.approveOverTime.descriptionSl"
+        ></ion-textarea>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-grid *ngIf="!base.loader.isLoading.getValue() && employees.length == 0">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <p>{{ 'Data.noDataInMonth' | translate}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <div class="footer-btn" *ngIf="employees.length > 0">
+    <ion-button expand="full" size="large" color="primary" (click)="add()"
+    [disabled]="
+        (model?.approveOverTimeWithDetailsDto.approveOverTime.descriptionFl == null 
+        || model?.approveOverTimeWithDetailsDto.approveOverTime.descriptionFl == '')
+        &&
+        (model?.approveOverTimeWithDetailsDto.approveOverTime.descriptionSl == null 
+        || model?.approveOverTimeWithDetailsDto.approveOverTime.descriptionSl == '')
+        || employees.length === 0"
+      > {{ 'Data.Approve' | translate }}</ion-button
+    >
+  </div>
+</ion-footer>
+
+

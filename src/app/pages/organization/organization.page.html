@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true">
+  <div class="center-content">
+    <div class="logo">
+      <img src="assets/logo.jpeg" alt="logo" />
+      <!-- <ion-col>
+        {{errorMsg | json }}
+      </ion-col> -->
+    </div>
+    <div class="form">
+      <div class="form-input">
+        <ion-label position="stacked">{{'Data.Organization' | translate}}</ion-label>
+        <ion-item>
+          <ion-input [(ngModel)]="orgID" [placeholder]="'organization.organization' | translate"></ion-input>
+          <ion-icon name="business-outline" size="small" slot="start"></ion-icon>
+        </ion-item>
+      </div>
+
+      <!-- <div class="form-input">
+        <ion-label position="stacked">{{'Data.OrganizationURL' | translate}}</ion-label>
+        <ion-item>
+          <ion-input [(ngModel)]="orgHost"></ion-input>
+          <ion-icon name="business-outline" size="small" slot="start"></ion-icon>
+        </ion-item>
+      </div> -->
+
+      <!-- <ion-item>
+        <ion-label position="floating">{{'Data.Organization' | translate}}</ion-label>
+        <ion-input  [(ngModel)]="orgID"></ion-input>
+        <ion-icon name="business-outline" size="small" slot="start"></ion-icon>
+      </ion-item> -->
+      <ion-button
+        class="submit-btn"
+        color="danger"
+        expand="block"
+        (click)="GoToUrl(orgID)" >
+        {{ 'organization.go' | translate }}
+      </ion-button>
+
+      <ion-button 
+      class="mt-15"
+      fill="outline"
+      expand="block"
+      size="small"
+      color="medium"
+       *ngIf="!base.isEnglish()" (click)="base.setLanguage('en')"
+      >
+      English
+      </ion-button>
+
+      <ion-button 
+      class="mt-15"
+      fill="outline"
+      expand="block"
+      size="small"
+      color="medium"
+      *ngIf="base.isEnglish()" (click)="base.setLanguage('ar')"
+      >
+      عربى
+      </ion-button>
+      
+    </div>
+    <div class="footer-text">{{ 'organization.timeAttendance' | translate }}</div>
+  </div>
+</ion-content>

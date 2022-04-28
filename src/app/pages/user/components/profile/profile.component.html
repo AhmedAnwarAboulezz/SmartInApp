@@ -1,0 +1,31 @@
+<div class="profile-wrap">
+  <div class="avatar-wrap">
+    <div class="avatar">
+      <div class="image">
+        <img [src]="employeeImage" alt="user photo" />
+      </div>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="item">
+      <ion-icon name="card-outline"></ion-icon>
+      <span>{{employeedata?.employeeNumber}}</span>
+    </div>
+
+    <div class="item">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <span>{{ localize.isEnglish() ? employeedata?.employeeNameFl : employeedata?.employeeNameSl }}</span>
+    </div>
+
+    <div class="item">
+      <ion-icon name="podium-outline"></ion-icon>
+      <span>{{ localize.isEnglish() ? employeedata?.adminLevelFl : employeedata?.adminLevelSl }}</span>
+    </div>
+
+    <div class="item">
+      <ion-icon name="bag-outline"></ion-icon>
+      <span>{{ localize.isEnglish() ? employeedata?.jobNameFl : employeedata?.jobNameSl }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="my-requests-wrap" [ngClass]="{'lang-ar': !localize.isEnglish()}">
+  <div class="card-items">
+    <ion-grid>
+      <ion-row>
+        <ng-container *ngFor="let item of requestsTypes">
+          <ion-col size="6">
+            <div (click)="navigate(item)" class="item-wrap">
+              <div class="item-icon">
+                <img [src]="item.icon" [alt]="item.title" />
+              </div>
+              <div class="title">{{ 'Card.' + item.title | translate }}</div>
+            </div>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>

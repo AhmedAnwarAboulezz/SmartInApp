@@ -1,0 +1,92 @@
+<div class="attendance-item-wrap" [ngClass]="{ 'lang-ar': !localize.isEnglish() }">
+  <div class="mini-content user-item d-flex mt-15">
+    <div class="info-wrap d-flex">
+      <div class="avatar">
+        <img src="assets/images/user.jpg" alt="avatar" />
+      </div>
+
+      <div class="info">
+        <div class="title">{{item?.employeeNumber}} - {{localize.isEnglish() ? item?.employeeNameFl : item?.employeeNameSl}}
+        </div>
+        <div class="sub-title">
+          <ion-icon class="icon" name="business-outline" ></ion-icon>
+          {{localize.isEnglish() ? item?.administrationFl : item?.administrationSl}}
+        </div>
+        <div class="sub-title"> {{'Data.TotalOvertime' | translate}} {{item?.total}} {{'Data.Minutes' | translate}}</div>
+      </div>
+    </div>
+    <div class="icon-wrap d-flex" style="font-size: large;">
+      <div (click)="removeItem(item)" class="trash-icon">
+        <ion-icon color="danger" name="trash-outline"></ion-icon>
+      </div>
+      
+      <div (click)="toggleEdit()" class="expand-icons" [ngClass]="{ expanded: isExpanded }">
+        <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="expanded-content" [ngClass]="{ expanded: isExpanded }">
+    <hr />
+    <ion-grid>
+      <div class="permission-date">
+        <ion-row>
+          <ion-col size="6">
+            <div class="form-input">
+              <ion-label position="stacked">{{'Data.Morning' | translate}}</ion-label>
+              <ion-item>
+                <ion-input type="number"
+                (focusout)='inputchange($event,item.morningTime,overTimeType.Morning)'
+                [(ngModel)]="item.actualMorningTime" 
+                min="0" oninput="this.value = Math.abs(this.value)">
+              </ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+
+          <ion-col size="6">
+            <div class="form-input">
+              <ion-label position="stacked">{{'Data.Night' | translate}}</ion-label>
+              <ion-item>
+                <ion-input type="number"
+                [(ngModel)]="item.actualNightTime" 
+                (focusout)='inputchange($event,item.nightTime,overTimeType.Evening)'
+                min="0" oninput="this.value = Math.abs(this.value)">
+              </ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+
+          <ion-col size="6">
+            <div class="form-input">
+              <ion-label position="stacked">{{'Data.Weekend' | translate}}</ion-label>
+              <ion-item>
+                <ion-input type="number"
+                  [(ngModel)]="item.actualWeekEndTime" 
+                  (focusout)='inputchange($event,item.weekEndTime,overTimeType.Weekend)'
+                  min="0" oninput="this.value = Math.abs(this.value)">
+                </ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+
+          <ion-col size="6">
+            <div class="form-input">
+              <ion-label position="stacked">{{'Data.HolidayLeave' | translate}}</ion-label>
+              <ion-item>
+                <ion-input type="number"
+                  [(ngModel)]="item.actualHolidayTime" 
+                  (focusout)='inputchange($event,item.holidayTime,overTimeType.HolidayLeave)'
+                  min="0" oninput="this.value = Math.abs(this.value)">
+                </ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </div>
+</div>
+
+
+

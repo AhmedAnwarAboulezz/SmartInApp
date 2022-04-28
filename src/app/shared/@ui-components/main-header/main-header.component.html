@@ -1,0 +1,90 @@
+<div class="header">
+  <div (click)="navigateToProfile(profilePath)" class="profile-info">
+    <div class="avatar">
+      <img [src]="employeeImage" alt="avatar" />
+    </div>
+    <div class="info">
+      <h3 [style]="{ color: isProfile ? '#eb445a' : '#000' }" class="name">
+        {{'organization.Hi' | translate}} {{ claims?.UserName }}
+      </h3>
+      <div class="organization">
+        <ion-icon name="business-outline" size="small" slot="start"></ion-icon>
+        <span>{{ organizationData?.organizationData?.nickName | uppercase }}</span>
+      </div>
+    </div>
+  </div>
+  <ion-button (click)="testBtn()" style="display: none;" id="testinIds">Refresh</ion-button>
+  <div class="header-icons">
+    
+      <ion-badge *ngIf="notificationCount > 0" class="notifi-badge" [ngClass]="{ 'lang-ar': !base.isEnglish() }" color="danger">{{notificationCount}}</ion-badge>
+      <ion-icon
+        (click)="navigateToNotification(notificationPath)"
+        class="notification"
+        name="notifications-outline"
+        color="{{ isNotifications ? 'danger' : 'default' }}"
+        
+      ></ion-icon>
+    
+   
+
+    <ion-icon
+      (click)="showModal()"
+      color="{{ modal.toggle ? 'danger' : 'default' }}"
+      name="menu-outline"
+    ></ion-icon>
+  </div>
+</div>
+
+<ng-template #menu>
+  <div class="menu-wrap">
+    <div
+      *ngFor="let item of pages"
+      class="item"
+      [ngClass]="{ active: item.active }"
+      (click)="navigate(item)"
+    >
+      <span class="icon">
+        <ion-icon [name]="item.icon" slot="start"></ion-icon>
+      </span>
+      <span class="text">{{'SIDEBAR.' + item.name | translate}}</span>
+    </div>
+
+    <div *ngIf="base.isEnglish()" (click)="base.setLanguage('ar');toggleMenu();" class="item">
+      <span class="icon">
+        <ion-icon name="language-outline" slot="start"></ion-icon>
+      </span>
+      <span class="text">عربي</span>
+    </div>
+    <div
+      *ngIf="!base.isEnglish()"
+      (click)="base.setLanguage('en');toggleMenu();"
+      class="item"
+    >
+      <span class="icon">
+        <ion-icon name="language-outline" slot="start"></ion-icon>
+      </span>
+      <span class="text">English</span>
+    </div>
+    <!-- <div class="item active">
+      <ion-icon slot="start" name="moon"></ion-icon>
+      <ion-label>
+        Toggle Dark Theme
+      </ion-label>
+      <ion-toggle  [ngModel]="theMode" (ngModelChange)="testTheme($event)" id="themeToggle" slot="end"></ion-toggle>
+    </div> -->
+    <div class="item active">
+      <span class="icon">
+        <ion-icon slot="start" name="moon"></ion-icon>
+      </span>
+      <span class="text">{{ 'Data.ToggleDarkTheme' | translate}}</span>
+      <ion-toggle  [ngModel]="theMode" (ngModelChange)="testTheme($event)" id="themeToggle" slot="end"></ion-toggle>
+    </div>
+
+    <div (click)="logOut(false)" class="item active">
+      <span class="icon">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      </span>
+      <span class="text">{{ 'Data.Logout' | translate}}</span>
+    </div>
+  </div>
+</ng-template>

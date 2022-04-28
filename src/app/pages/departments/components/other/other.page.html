@@ -1,0 +1,147 @@
+
+<div class="my-requests-wrap" [ngClass]="{'lang-ar': !localize.isEnglish()}">
+  <div class="card-items">
+    <ion-grid>
+      <ion-row>
+        <ng-container *ngFor="let item of requestsTypes">
+          <ion-col size="6">
+            <div (click)="navigate(item)" class="item-wrap">
+              <div class="item-icon">
+                <img [src]="item.icon" [alt]="item.title" />
+              </div>
+              <div class="title">{{ 'Card.' + item.title | translate }}</div>
+            </div>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>
+
+
+
+<!-- <ion-content>
+  <div class="filter-wrap d-flex">
+    <div class="date">
+      <h1 class="m-0">Other</h1>
+    </div>
+    <div class="filter-icon">
+      <div class="icons m-0">
+        <div (click)="showModal()" class="icon filter-icon">
+          <ion-icon name="funnel-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-items">
+    <ng-container *ngFor="let item of permissions">
+      <div class="mt-15">
+        <div
+          [class]="'attendance-item-wrap ' + item?.status"
+          [ngClass]="{ 'lang-ar': !localize.isEnglish() }"
+        >
+          <div class="mini-content">
+            <div class="header d-flex">
+              <p class="m-0">{{ item?.balance }} - {{ item?.employeeName }}</p>
+              <span [class]="'status ' + item?.status">{{ item?.status }}</span>
+              <div class="expand-icons">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </div>
+            </div>
+            <hr />
+            <div class="content d-flex">
+              <div class="permission-date from">
+                <p class="title m-0">Month</p>
+                <p class="mt-5 mb-5">{{ item?.balanceBefore }}</p>
+              </div>
+              <div class="permission-date from">
+                <p class="title m-0">No. of Days</p>
+                <p class="mt-5 mb-5">{{ item?.balanceBefore }}</p>
+              </div>
+              <div class="permission-date from">
+                <p class="title m-0">Total late</p>
+                <p class="mt-5 mb-5">{{ item?.balanceBefore }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
+
+<ng-template #filterContent>
+  <div class="filter-content">
+    <h2 class="title mb-15">{{'Data.filter' | translate}}</h2>
+    <div class="form">
+      <ion-radio-group>
+        <ion-label>Type</ion-label>
+        <div class="form-radio filter mb-15">
+          <div class="radio-item">
+            <ion-checkbox
+              class="radio radio-inline"
+              slot="start"
+              value="sick"
+            ></ion-checkbox>
+            <ion-label>Sick</ion-label>
+          </div>
+          <div class="radio-item">
+            <ion-checkbox
+              class="radio radio-inline"
+              slot="start"
+              value="annual"
+            ></ion-checkbox>
+            <ion-label>Annual</ion-label>
+          </div>
+          <div class="radio-item">
+            <ion-checkbox
+              class="radio radio-inline"
+              slot="start"
+              value="emergency"
+            ></ion-checkbox>
+            <ion-label>Emergency</ion-label>
+          </div>
+        </div>
+      </ion-radio-group>
+
+      <div class="form-input filter">
+        <ion-label position="stacked">{{ 'Data.MonthYear' | translate }}</ion-label>
+        <ion-item>
+          <ion-datetime
+            placeholder="{{ 'Data.MonthYear' | translate }}"
+            displayFormat="MMMM YYYY"
+          ></ion-datetime>
+          <ion-icon
+            name="calendar-clear-outline"
+            size="small"
+            slot="start"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <div class="action-btns d-flex">
+        <div class="btn apply-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="danger"
+            expand="full"
+          >
+            {{ 'Data.Apply' | translate }}
+          </ion-button>
+        </div>
+        <div class="btn reset-btn">
+          <ion-button
+            (click)="modal.toggleShow()"
+            class="submit-btn"
+            color="light"
+            expand="full"
+          >
+            {{ 'Data.Clear' | translate }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template> -->
